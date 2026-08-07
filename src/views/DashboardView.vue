@@ -84,6 +84,18 @@ function handleLogout(): void {
 .content {
   display: flex;
   justify-content: center;
-  padding: 2rem 1rem;
+  padding: 2.5rem 2rem;
+}
+
+@media (max-width: 1024px) {
+  .content {
+    padding: 2rem 1.25rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .content {
+    padding: 1rem 0;
+  }
 }
 </style>
