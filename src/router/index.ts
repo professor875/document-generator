@@ -8,7 +8,7 @@
  *   /dashboard  -> DashboardView (protected -- redirects to / if not logged in)
  */
 
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
 import { isAuthenticated } from '@/services/auth'
 
 // ---------------------------------------------------------------
@@ -42,8 +42,8 @@ const routes: RouteRecordRaw[] = [
 // Router instance
 // ---------------------------------------------------------------
 const router = createRouter({
-  // Use HTML5 history mode (clean URLs without hash fragments).
-  history: createWebHistory(),
+  // Use hash mode for static hosting (Hostinger, etc.) compatibility.
+  history: createWebHashHistory(),
   routes
 })
 

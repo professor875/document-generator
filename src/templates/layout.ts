@@ -79,6 +79,27 @@ interface TextSegment {
 }
 
 /**
+ * Mirror BiDi-mirrored characters (brackets, parentheses, etc.).
+ * PDF viewers auto-mirror these in RTL runs, so we pre-mirror them
+ * to cancel out that effect and display the intended glyph.
+ */
+const MIRROR_MAP: Record<string, string> = {
+  '(': ')', ')': '(',
+  '[': ']', ']': '[',
+  '{': '}', '}': '{',
+  '\u00AB': '\u00BB', '\u00BB': '\u00AB', // « »
+  '\u2039': '\u203A', '\u203A': '\u2039', // ‹ ›
+}
+
+function mirrorBrackets(text: string): string {
+  let result = ''
+  for (const ch of text) {
+    result += MIRROR_MAP[ch] ?? ch
+  }
+  return result
+}
+
+/**
  * Split a string into same-direction segments.
  * Neutral characters (spaces, punctuation) attach to the
  * preceding direction.
@@ -189,12 +210,14 @@ export class PageLayout {
     const fontSize = style.fontSize ?? this.defaultFontSize
     const [cr, cg, cb] = style.color ?? [0, 0, 0]
 
-    // Split into same-direction segments — NO reversal, keep logical order
+    // Split into same-direction segments — NO reversal, keep logical order.
+    // Pre-mirror brackets in RTL segments so the viewer's auto-mirroring
+    // produces the correct glyphs.
     const segments = splitSegments(text)
     const prepared = segments.map(seg => {
-      // Text stays in logical order — the viewer handles direction
-      const w = font.widthOfTextAtSize(seg.text, fontSize)
-      return { text: seg.text, w, isRTL: seg.isRTL }
+      const rendered = seg.isRTL ? mirrorBrackets(seg.text) : seg.text
+      const w = font.widthOfTextAtSize(rendered, fontSize)
+      return { text: rendered, w, isRTL: seg.isRTL }
     })
 
     const totalWidth = prepared.reduce((sum, p) => sum + p.w, 0)
