@@ -1,11 +1,13 @@
-<script setup lang="ts"></script>
+<!--
+  App.vue -- Root component
+
+  Acts as a thin shell around the router. The <router-view /> component
+  renders whichever view matches the current URL (LoginView or
+  DashboardView). No extra layout or styling is added here so each
+  view controls its own presentation.
+-->
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <!-- Renders the component that matches the current route -->
+  <router-view />
 </template>
-
-<style scoped></style>

@@ -11,7 +11,11 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
-    "vue": "^3.5.40"
+    "@pdf-lib/fontkit": "^1.1.1",
+    "bidi-js": "^1.0.3",
+    "pdf-lib": "^1.17.1",
+    "vue": "^3.5.40",
+    "vue-router": "^5.2.0"
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.4",
