@@ -308,6 +308,21 @@ export class PageLayout {
     }
   }
 
+  /** Add left-aligned text */
+  addLeftText(text: string, style: TextStyle = {}): void {
+    const fontSize = style.fontSize ?? this.defaultFontSize
+    const lineHeight = fontSize * 1.4
+
+    const lines = this.wrapText(text, this.contentWidth, style)
+    for (const line of lines) {
+      this.drawTextLine(
+        this.margins.left, this.y, line,
+        this.contentWidth, 'left', style
+      )
+      this.y -= lineHeight
+    }
+  }
+
   /** Add right-aligned text (standard for Hebrew documents) */
   addRightText(text: string, style: TextStyle = {}): void {
     const fontSize = style.fontSize ?? this.defaultFontSize

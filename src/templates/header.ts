@@ -26,7 +26,7 @@ export function renderHeader(layout: PageLayout, fields: DocumentFields): void {
 
   layout.addSpacing(8)
 
-  // "בעניין:" label — keep border per requirements
+  // "בעניין:" label — right-aligned, no border
   layout.addRightLabel('בעניין :')
 
   layout.addSpacing(2)
@@ -46,8 +46,8 @@ export function renderHeader(layout: PageLayout, fields: DocumentFields): void {
 
   layout.addSpacing(4)
 
-  // Plaintiff label — dynamic, rendered as plain bold text (no border)
-  layout.addRightText(fields.plaintiffLabel, { ...bold, fontSize: 9 })
+  // Plaintiff label — dynamic, LEFT-aligned to match original template placement
+  layout.addLeftText(fields.plaintiffLabel, { ...bold, fontSize: 9 })
 
   layout.addSpacing(8)
 
@@ -66,6 +66,6 @@ export function renderHeader(layout: PageLayout, fields: DocumentFields): void {
 
   layout.addSpacing(4)
 
-  // Defendant label — dynamic, rendered as plain bold text (no border)
-  layout.addRightText(fields.defendantLabel, { ...bold, fontSize: 9 })
+  // Defendant label — dynamic, LEFT-aligned to match original template placement
+  layout.addLeftText(fields.defendantLabel, { ...bold, fontSize: 9 })
 }
