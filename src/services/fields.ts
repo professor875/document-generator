@@ -1,224 +1,433 @@
 /**
  * Field Definitions for the Document Generator
  *
- * This file defines every editable field in the PDF template.
+ * This file defines every editable field shown in the form UI.
  * Each field has:
- *   - Form metadata (id, label, type, defaultValue) — used by DocumentForm.vue
- *   - PDF placement data (page, x, y, width, height) — used by the PDF service
+ *   - id           — unique key, matches DocumentFields interface in types.ts
+ *   - label        — Hebrew label shown in DocumentForm.vue
+ *   - type         — HTML input type ('text', 'textarea')
+ *   - defaultValue — pre-filled value
+ *   - placeholder  — input placeholder text
+ *   - group        — logical grouping for the form UI
  *
- * The separation allows the form UI and PDF generation logic to stay
- * independent: the form only cares about labels and types, while the
- * PDF service only cares about coordinates.
- *
- * COORDINATE SYSTEM:
- *   PDF coordinates have (0, 0) at the bottom-left corner of the page.
- *   Y increases going UP.  The template is US Letter: 612 x 792 points.
- *   Coordinates were measured using a calibration grid overlay.
- *
- * ADDING NEW FIELDS:
- *   1. Add a new entry to DOCUMENT_FIELDS below.
- *   2. Generate a calibration grid to find the x/y coordinates.
- *   3. Add one or more placements (the same field can appear on
- *      multiple pages — e.g., the header repeats on pages 1 and 5).
+ * ALL red-boxed content from the original PDF is represented here as
+ * a dynamic field. Textarea fields allow multi-line editing for large
+ * text blocks (summons, claims, damages, etc.).
  */
 
 // -------------------------------------------------------------------
 // Types
 // -------------------------------------------------------------------
 
-/**
- * Where a field's value should be drawn on a specific page of the PDF.
- *
- *   page   — 0-based page index
- *   x      — left edge of the white cover rectangle (points)
- *   y      — bottom edge of the white cover rectangle (points)
- *   width  — width of the white cover rectangle (points)
- *   height — height of the white cover rectangle (points)
- *
- * The white rectangle erases the original red text, then the user's
- * new value is drawn on top at the correct position.
- */
-export interface FieldPlacement {
-  page: number
-  x: number
-  y: number
-  width: number
-  height: number
-}
-
-/**
- * Full definition for one editable field.
- *
- * Form-facing properties (used by DocumentForm.vue):
- *   id, label, type, defaultValue, placeholder
- *
- * PDF-facing properties (used by pdf.ts):
- *   placements, fontSize, bold, align
- */
 export interface FieldDefinition {
-  // -- Form properties --
   id: string
-  label: string                       // Hebrew label shown in the form
-  type: 'text' | 'date' | 'time'     // HTML input type
-  defaultValue: string                // Pre-filled from the template
-  placeholder?: string               // Input placeholder text
-
-  // -- PDF properties --
-  placements: FieldPlacement[]        // One or more locations in the PDF
-  fontSize: number                    // Font size in points
-  bold?: boolean                      // Use bold font variant?
-  align?: 'right' | 'left' | 'center' // Text alignment within the field area
+  label: string
+  type: 'text' | 'textarea' | 'date' | 'time'
+  defaultValue: string
+  placeholder?: string
+  group?: string
 }
 
 // -------------------------------------------------------------------
-// Field definitions — initial 8 representative fields
-//
-// These cover the key text patterns found in the template:
-//   - Pure Hebrew (address, plaintiff name)
-//   - Hebrew + numbers (case number, phone, attorney license)
-//   - English / LTR (email)
-//   - Pure numbers (company ID)
-//   - Long mixed strings (insurance policy)
-//
-// Coordinates are based on the US Letter (612x792) template.
-// Fields that appear on both page 1 and page 5 have two placements.
+// Field definitions — grouped logically
 // -------------------------------------------------------------------
 
 export const DOCUMENT_FIELDS: FieldDefinition[] = [
-  // ---------------------------------------------------------------
-  // Font sizes derived from template analysis:
-  //   Template uses ~1.6x scaled coordinate system.
-  //   Visible sizes = template sizes * 0.625
-  //   Case number:   14.688 * 0.625 ≈ 9.2pt (bold)
-  //   Plaintiff name: 16.704 * 0.625 ≈ 10.4pt (bold)
-  //   Body text:     14.4 * 0.625 ≈ 9pt
-  //   Company ID:    13.536 * 0.625 ≈ 8.5pt
-  //
-  // White rectangles are intentionally oversized to guarantee
-  // full coverage of the original red text underneath.
-  // ---------------------------------------------------------------
-
+  // =============================================
+  // פרטי תיק (Case details)
+  // =============================================
+  {
+    id: 'courtName',
+    label: 'שם בית המשפט',
+    type: 'text',
+    defaultValue: 'בבית המשפט השלום בחיפה',
+    placeholder: 'בבית המשפט...',
+    group: 'פרטי תיק',
+  },
   {
     id: 'caseNumber',
     label: 'מספר תיק',
     type: 'text',
     defaultValue: 'ת"א 07-26-',
     placeholder: 'ת"א XX-XX-',
-    fontSize: 9,
-    bold: true,
-    align: 'center',
-    placements: [
-      // Box in template at x≈132–237, baseline y≈728.
-      // Generous rect: bottom at 718, top at 746 (h=28).
-      { page: 0, x: 122, y: 718, width: 125, height: 28 },
-      { page: 4, x: 122, y: 718, width: 125, height: 28 },
-    ],
+    group: 'פרטי תיק',
   },
-
   {
-    id: 'plaintiffNameId',
-    label: 'שם התובע ותעודת זהות',
+    id: 'courtFee',
+    label: 'סכום אגרה',
     type: 'text',
-    defaultValue: 'עבד אלחמיד חג\'אזי  ת"ז 036600500',
-    placeholder: 'שם מלא  ת"ז XXXXXXXXX',
-    fontSize: 10,
-    bold: true,
-    align: 'center',
-    placements: [
-      // Bold centered line, baseline y≈692.
-      // Extended down to y=675 to cover descenders and any bleed.
-      { page: 0, x: 240, y: 675, width: 370, height: 33 },
-      { page: 4, x: 240, y: 675, width: 370, height: 33 },
-    ],
+    defaultValue: '839',
+    placeholder: 'סכום',
+    group: 'פרטי תיק',
   },
 
+  // =============================================
+  // פרטי התובע (Plaintiff details)
+  // =============================================
+  {
+    id: 'plaintiffName',
+    label: 'שם התובע',
+    type: 'text',
+    defaultValue: 'עבד אלחמיד חג\'אזי',
+    placeholder: 'שם מלא',
+    group: 'פרטי התובע',
+  },
+  {
+    id: 'plaintiffId',
+    label: 'תעודת זהות',
+    type: 'text',
+    defaultValue: '036600500',
+    placeholder: 'XXXXXXXXX',
+    group: 'פרטי התובע',
+  },
   {
     id: 'plaintiffAddress',
     label: 'כתובת התובע',
     type: 'text',
     defaultValue: 'מרח\' סיף אל דין, דיר אלאסד',
     placeholder: 'רחוב, עיר',
-    fontSize: 9,
-    align: 'center',
-    placements: [
-      // Baseline y≈668. Rect 656–682.
-      { page: 0, x: 270, y: 656, width: 320, height: 26 },
-      { page: 4, x: 270, y: 656, width: 320, height: 26 },
-    ],
+    group: 'פרטי התובע',
   },
-
   {
     id: 'plaintiffPhone',
     label: 'טלפון התובע',
     type: 'text',
-    defaultValue: 'טל: 050-7761618',
-    placeholder: 'טל: 0XX-XXXXXXX',
-    fontSize: 9,
-    align: 'center',
-    placements: [
-      // Baseline y≈652. Rect 640–666.
-      { page: 0, x: 340, y: 640, width: 235, height: 26 },
-      { page: 4, x: 340, y: 640, width: 235, height: 26 },
-    ],
+    defaultValue: '050-7761618',
+    placeholder: '0XX-XXXXXXX',
+    group: 'פרטי התובע',
   },
-
   {
-    id: 'attorneyName',
-    label: 'שם עורך הדין ומספר רישיון',
+    id: 'plaintiffBirthDate',
+    label: 'תאריך לידת התובע',
     type: 'text',
-    defaultValue: 'עוה"ד ענאן חוסיין מ.ר 100020',
-    placeholder: 'עוה"ד שם מ.ר XXXXXX',
-    fontSize: 9,
-    align: 'center',
-    placements: [
-      // Baseline y≈636. Rect 624–650.
-      { page: 0, x: 235, y: 624, width: 355, height: 26 },
-      { page: 4, x: 235, y: 624, width: 355, height: 26 },
-    ],
+    defaultValue: '05/05/1985',
+    placeholder: 'DD/MM/YYYY',
+    group: 'פרטי התובע',
+  },
+  {
+    id: 'plaintiffCity',
+    label: 'עיר מגורים',
+    type: 'text',
+    defaultValue: 'דיר אלאסד',
+    placeholder: 'שם העיר',
+    group: 'פרטי התובע',
+  },
+  {
+    id: 'plaintiffLabel',
+    label: 'כינוי התובע',
+    type: 'text',
+    defaultValue: 'להלן: "התובע"',
+    placeholder: 'להלן: "..."',
+    group: 'פרטי התובע',
   },
 
+  // =============================================
+  // פרטי עורך הדין (Attorney details)
+  // =============================================
+  {
+    id: 'attorney1',
+    label: 'עורך דין ראשי',
+    type: 'text',
+    defaultValue: 'ע"י ב"כ עוה"ד ענאן חוסיין מ.ר 100020',
+    placeholder: 'ע"י ב"כ עוה"ד שם מ.ר XXXXXX',
+    group: 'פרטי עורך הדין',
+  },
+  {
+    id: 'attorney2',
+    label: 'עורך דין משני',
+    type: 'text',
+    defaultValue: 'ו/או עוה"ד מאריא עמאש מ.ר 101927',
+    placeholder: 'ו/או עוה"ד שם מ.ר XXXXXX',
+    group: 'פרטי עורך הדין',
+  },
+  {
+    id: 'attorneyAddress',
+    label: 'כתובת עורך הדין',
+    type: 'text',
+    defaultValue: 'רח\' אלמריג\' נחף',
+    placeholder: 'רחוב, עיר',
+    group: 'פרטי עורך הדין',
+  },
+  {
+    id: 'attorneyPhone',
+    label: 'טלפון עורך הדין',
+    type: 'text',
+    defaultValue: '050-7761618',
+    placeholder: '0XX-XXXXXXX',
+    group: 'פרטי עורך הדין',
+  },
   {
     id: 'email',
     label: 'דואר אלקטרוני',
     type: 'text',
     defaultValue: 'E-MAIL: ananhosenadv@gmail.com',
     placeholder: 'E-MAIL: example@domain.com',
-    fontSize: 9,
-    align: 'center',
-    placements: [
-      // Baseline y≈578. Rect 566–592.
-      { page: 0, x: 225, y: 566, width: 350, height: 26 },
-      { page: 4, x: 225, y: 566, width: 350, height: 26 },
-    ],
+    group: 'פרטי עורך הדין',
+  },
+  {
+    id: 'attorneySignName',
+    label: 'שם עורך הדין לחתימה',
+    type: 'text',
+    defaultValue: 'ענאן חוסיין',
+    placeholder: 'שם עורך הדין',
+    group: 'פרטי עורך הדין',
   },
 
+  // =============================================
+  // פרטי הנתבעת (Defendant details)
+  // =============================================
   {
     id: 'defendantCompanyId',
     label: 'מספר ח.פ של הנתבעת',
     type: 'text',
-    defaultValue: 'ח.פ 513136895',
-    placeholder: 'ח.פ XXXXXXXXX',
-    fontSize: 8.5,
-    align: 'center',
-    placements: [
-      // Baseline y≈509. Rect 500–518 — carefully avoids
-      // the company name line above (baseline y≈525).
-      { page: 0, x: 345, y: 500, width: 225, height: 18 },
-      { page: 4, x: 345, y: 500, width: 225, height: 18 },
-    ],
+    defaultValue: '513136895',
+    placeholder: 'XXXXXXXXX',
+    group: 'פרטי הנתבעת',
+  },
+  {
+    id: 'defendantLabel',
+    label: 'כינוי הנתבעת',
+    type: 'text',
+    defaultValue: 'להלן: "הנתבעת"',
+    placeholder: 'להלן: "..."',
+    group: 'פרטי הנתבעת',
   },
 
+  // =============================================
+  // פרטי התאונה (Accident details)
+  // =============================================
+  {
+    id: 'accidentDate',
+    label: 'תאריך התאונה',
+    type: 'text',
+    defaultValue: '14.4.2022',
+    placeholder: 'DD.MM.YYYY',
+    group: 'פרטי התאונה',
+  },
+  {
+    id: 'accidentTime',
+    label: 'שעת התאונה',
+    type: 'text',
+    defaultValue: '18:00',
+    placeholder: 'HH:MM',
+    group: 'פרטי התאונה',
+  },
+  {
+    id: 'plaintiffVehicleReg',
+    label: 'מספר רכב התובע',
+    type: 'text',
+    defaultValue: '1065553',
+    placeholder: 'מספר רישוי',
+    group: 'פרטי התאונה',
+  },
+  {
+    id: 'busCompany',
+    label: 'חברת האוטובוס',
+    type: 'text',
+    defaultValue: 'אגד',
+    placeholder: 'שם חברה',
+    group: 'פרטי התאונה',
+  },
+  {
+    id: 'busReg',
+    label: 'מספר רכב האוטובוס',
+    type: 'text',
+    defaultValue: '779969',
+    placeholder: 'מספר רישוי',
+    group: 'פרטי התאונה',
+  },
   {
     id: 'policyNumber',
     label: 'מספר פוליסת ביטוח',
     type: 'text',
-    defaultValue: 'שמספרה 202-312102119821-00',
-    placeholder: 'שמספרה XXX-XXXXXXXXXXXX-XX',
-    fontSize: 9,
-    align: 'center',
-    placements: [
-      // Baseline y≈128. Rect 116–142.
-      { page: 0, x: 160, y: 116, width: 340, height: 26 },
-    ],
+    defaultValue: '202-312102119821-00',
+    placeholder: 'XXX-XXXXXXXXXXXX-XX',
+    group: 'פרטי התאונה',
+  },
+
+  // =============================================
+  // תאריכי טיפולים רפואיים (Medical visit dates)
+  // =============================================
+  {
+    id: 'medicalVisit1Date',
+    label: 'תאריך ביקור רפואי 1 (טרם)',
+    type: 'text',
+    defaultValue: '14.04.2022',
+    placeholder: 'DD.MM.YYYY',
+    group: 'תאריכי טיפולים רפואיים',
+  },
+  {
+    id: 'medicalVisit2Date',
+    label: 'תאריך ביקור רפואי 2 (רופא משפחה)',
+    type: 'text',
+    defaultValue: '23.04.2022',
+    placeholder: 'DD.MM.YYYY',
+    group: 'תאריכי טיפולים רפואיים',
+  },
+  {
+    id: 'medicalVisit3Date',
+    label: 'תאריך ביקור רפואי 3 (אורתופדיה)',
+    type: 'text',
+    defaultValue: '07.05.2022',
+    placeholder: 'DD.MM.YYYY',
+    group: 'תאריכי טיפולים רפואיים',
+  },
+  {
+    id: 'physioStartDate',
+    label: 'תאריך תחילת פיזיותרפיה',
+    type: 'text',
+    defaultValue: '13.05.2022',
+    placeholder: 'DD.MM.YYYY',
+    group: 'תאריכי טיפולים רפואיים',
+  },
+  {
+    id: 'physioEndDate',
+    label: 'תאריך סיום פיזיותרפיה',
+    type: 'text',
+    defaultValue: '24.06.2022',
+    placeholder: 'DD.MM.YYYY',
+    group: 'תאריכי טיפולים רפואיים',
+  },
+  {
+    id: 'medicalVisit4Date',
+    label: 'תאריך ביקור רפואי 4 (ביקורת אורתופדית)',
+    type: 'text',
+    defaultValue: '17.05.2022',
+    placeholder: 'DD.MM.YYYY',
+    group: 'תאריכי טיפולים רפואיים',
+  },
+  {
+    id: 'imagingDate',
+    label: 'תאריך בדיקות הדמיה',
+    type: 'text',
+    defaultValue: '01.08.2022',
+    placeholder: 'DD.MM.YYYY',
+    group: 'תאריכי טיפולים רפואיים',
+  },
+  {
+    id: 'medicalVisit5Date',
+    label: 'תאריך ביקור רפואי 5 (ביקורת אורתופדית)',
+    type: 'text',
+    defaultValue: '28.08.2022',
+    placeholder: 'DD.MM.YYYY',
+    group: 'תאריכי טיפולים רפואיים',
+  },
+  {
+    id: 'medicalVisit6Date',
+    label: 'תאריך ביקור רפואי 6 (ביקורת אורתופדית)',
+    type: 'text',
+    defaultValue: '17.12.2023',
+    placeholder: 'DD.MM.YYYY',
+    group: 'תאריכי טיפולים רפואיים',
+  },
+
+  // =============================================
+  // נזקים (Damages)
+  // =============================================
+  {
+    id: 'physioCount',
+    label: 'מספר טיפולי פיזיותרפיה',
+    type: 'text',
+    defaultValue: '36',
+    placeholder: 'מספר',
+    group: 'נזקים',
+  },
+  {
+    id: 'medicalExpenses',
+    label: 'הוצאות רפואיות (ש"ח)',
+    type: 'text',
+    defaultValue: '10,000',
+    placeholder: 'סכום',
+    group: 'נזקים',
+  },
+  {
+    id: 'thirdPartyHelp',
+    label: 'עזרת הזולת (ש"ח)',
+    type: 'text',
+    defaultValue: '10,000',
+    placeholder: 'סכום',
+    group: 'נזקים',
+  },
+  {
+    id: 'pastLostWages',
+    label: 'הפסדי שכר בעבר (ש"ח)',
+    type: 'text',
+    defaultValue: '30,000',
+    placeholder: 'סכום',
+    group: 'נזקים',
+  },
+
+  // =============================================
+  // בלוקים של טקסט (Text blocks — textarea fields)
+  // =============================================
+  {
+    id: 'caseInfoBlock',
+    label: 'פרטי התביעה והאגרה',
+    type: 'textarea',
+    defaultValue: `מהות התביעה: פיצויים בגין נזקי גוף עקב ת.ד (פלת"ד).
+סכום התביעה : כגבול סמכותו של בית המשפט
+סכום האגרה שיש לשלם: 839 בהתאם לפריט 34 לתוספת של תקנות בתי המשפט (אגרות),
+תשס"ז-2007.
+האם קיים הליך נוסף בבית משפט או בית דין: לא.`,
+    placeholder: 'פרטי התביעה...',
+    group: 'בלוקים של טקסט',
+  },
+  {
+    id: 'summonsText',
+    label: 'טקסט הזמנה לדין',
+    type: 'textarea',
+    defaultValue: 'הואיל והתובע הגיש כתב תביעה זה נגדך, אתה מוזמן להגיש כתב הגנה בתוך שישים ימים מיום שהומצאה לך הזמנה זו. לתשומת לבך, אם לא תגיש כתב הגנה אזי לפי תקנה 130 לתקנות סדר הדין האזרחי, התשע"ט-2018, תהיה לתובעת הזכות לקבל פסק דין שלא בפניך.',
+    placeholder: 'טקסט הזמנה לדין...',
+    group: 'בלוקים של טקסט',
+  },
+  {
+    id: 'claimsText',
+    label: 'סעדים נדרשים (סעיפים 15-19)',
+    type: 'textarea',
+    defaultValue: `15. התובע יטען כי עודנו סובל מכאבים והגבלה בתנועות אשר גורמים לו לפנות לרופאים וליטול תרופות משככי כאבים.
+
+16. התובע יטען כי נותרה לו נכות בתחום האורתופדיה כתוצאה ישירה מהתאונה.
+
+17. בעקבות התאונה, נותר התובע ללא כושר תפקודי דבר אשר גרם לו אובדן השתכרות בעבר. כמו כן, לאורך כל תקופת אי כושרו של התובע הוא נזקק לעזרת בני משפחתו באופן החורג מהעזרה הסבירה הניתנת ע"י בני המשפחה בחיי היומיום.
+
+18. התובע שומר לעצמו את זכותו לשנות את כתב התביעה ו/או להוסיף עליו במידה ותחול החמרה במצבו, לרבות אשפוז נוסף ו/או יידרש להוצאת הוצאות נוספות מעבר לאמור בכתב התביעה.
+
+19. ואלה, בין היתר, הנזקים שנגרמו לתובע כתוצאה ישירה ו/או עקיפה מהתאונה :`,
+    placeholder: 'סעדים נדרשים...',
+    group: 'בלוקים של טקסט',
+  },
+  {
+    id: 'legalPrayer',
+    label: 'סיכום ובקשות (סעיפים 20-23)',
+    type: 'textarea',
+    defaultValue: `20. התובע יטען, כי על הנתבעת לפצותו, בגין נזקיו בהיותה מבטחת את השימוש ברכב, כמתואר לעיל.
+
+21. כל טענה ו/או פרט ו/או עובדה בכתב התביעה, נטענים במצטבר ו/או לחילופין, הכל לפי הקשר הדברים והעניין.
+
+22. לבית המשפט הנכבד הסמכות העניינית לדון בתביעה, בין היתר, בגין סכום התביעה.
+
+23. אשר על כן, מתבקש בית המשפט הנכבד להזמין את הנתבעת לדין ולחייבה לפצות את התובע בגין נזקיו עפ"י החלוקה המפורטת לעיל ו/או כל חלוקה אחרת שתימצא לנכון, בצירוף הפרשי הצמדה וריבית כחוק. כן יתבקש בית המשפט הנכבד לחייב את הנתבעת בהוצאות משפט ושכ"ט עו"ד בצרוף הפרשי הצמדה, ריבית ומע"מ כחוק.`,
+    placeholder: 'סיכום ובקשות...',
+    group: 'בלוקים של טקסט',
+  },
+  {
+    id: 'specialDamages',
+    label: 'נזקים מיוחדים',
+    type: 'textarea',
+    defaultValue: `2. הוצאות רפואיות: 10,000 ש"ח
+4. עזרת הזולת: 10,000 ש"ח
+5. הפסדי שכר בעבר: 30,000 ש"ח`,
+    placeholder: 'נזקים מיוחדים...',
+    group: 'בלוקים של טקסט',
+  },
+  {
+    id: 'generalDamages',
+    label: 'נזקים כלליים',
+    type: 'textarea',
+    defaultValue: `1. כאב וסבל.
+2. הפסד שכר בעתיד ואובדן כושר השתכרות.
+3. הוצאות רפואיות ונסיעות לעתיד.`,
+    placeholder: 'נזקים כלליים...',
+    group: 'בלוקים של טקסט',
   },
 ]

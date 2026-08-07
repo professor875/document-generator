@@ -24,7 +24,16 @@
       -->
       <div v-for="field in DOCUMENT_FIELDS" :key="field.id" class="field">
         <label :for="field.id">{{ field.label }}</label>
+        <!-- Render textarea for multiline fields, input for everything else -->
+        <textarea
+          v-if="field.type === 'textarea'"
+          :id="field.id"
+          v-model="formData[field.id]"
+          :placeholder="field.placeholder || ''"
+          rows="4"
+        ></textarea>
         <input
+          v-else
           :id="field.id"
           v-model="formData[field.id]"
           :type="field.type"
@@ -230,7 +239,8 @@ onBeforeUnmount(() => {
   /* Labels are right-aligned by the RTL direction on the parent */
 }
 
-.field input {
+.field input,
+.field textarea {
   width: 100%;
   padding: 0.6rem 0.75rem;
   border: 1px solid #ccc;
@@ -238,12 +248,19 @@ onBeforeUnmount(() => {
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s;
-  /* Ensure inputs also follow RTL text direction */
   direction: rtl;
   box-sizing: border-box;
+  font-family: inherit;
 }
 
-.field input:focus {
+.field textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.5;
+}
+
+.field input:focus,
+.field textarea:focus {
   border-color: #3b82f6;
 }
 
