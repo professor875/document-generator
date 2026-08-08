@@ -465,13 +465,167 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     important: true,
   },
 
+  // =============================================
+  // עמוד 5 - כותרת (Page 5 header)
+  // =============================================
+  {
+    id: 'p5CourtName',
+    label: 'שם בית המשפט',
+    type: 'text',
+    defaultValue: 'בבית המשפט השלום בחיפה',
+    placeholder: 'בבית המשפט...',
+    group: 'עמוד 5 - כותרת',
+    important: true,
+  },
+  {
+    id: 'p5CaseNumber',
+    label: 'מספר תיק',
+    type: 'text',
+    defaultValue: 'ת"א 07-26-',
+    placeholder: 'ת"א XX-XX-',
+    group: 'עמוד 5 - כותרת',
+    important: true,
+  },
+  {
+    id: 'p5RegardingLabel',
+    label: 'כותרת בעניין',
+    type: 'text',
+    defaultValue: 'בעניין :',
+    placeholder: 'בעניין :',
+    group: 'עמוד 5 - כותרת',
+    important: true,
+  },
+  {
+    id: 'p5PlaintiffName',
+    label: 'שם התובע',
+    type: 'text',
+    defaultValue: 'עבד אלחמיד חג\'אזי',
+    placeholder: 'שם מלא',
+    group: 'עמוד 5 - כותרת',
+    important: true,
+  },
+  {
+    id: 'p5PlaintiffId',
+    label: 'תעודת זהות',
+    type: 'text',
+    defaultValue: '036600500',
+    placeholder: 'XXXXXXXXX',
+    group: 'עמוד 5 - כותרת',
+    important: true,
+  },
+  {
+    id: 'p5PlaintiffAddress',
+    label: 'כתובת התובע',
+    type: 'text',
+    defaultValue: 'מרח\' סיף אל דין, דיר אלאסד',
+    placeholder: 'רחוב, עיר',
+    group: 'עמוד 5 - כותרת',
+    important: true,
+  },
+  {
+    id: 'p5PlaintiffPhone',
+    label: 'טלפון התובע',
+    type: 'text',
+    defaultValue: '050-7761618',
+    placeholder: '0XX-XXXXXXX',
+    group: 'עמוד 5 - כותרת',
+    important: true,
+  },
+  {
+    id: 'p5Attorney1',
+    label: 'עורך דין ראשי',
+    type: 'text',
+    defaultValue: 'ע"י ב"כ עוה"ד ענאן חוסיין מ.ר 100020',
+    placeholder: 'ע"י ב"כ עוה"ד שם מ.ר XXXXXX',
+    group: 'עמוד 5 - כותרת',
+    important: true,
+  },
+  {
+    id: 'p5Attorney2',
+    label: 'עורך דין משני',
+    type: 'text',
+    defaultValue: 'ו/או עוה"ד מאריא עמאש מ.ר 101927',
+    placeholder: 'ו/או עוה"ד שם מ.ר XXXXXX',
+    group: 'עמוד 5 - כותרת',
+    important: true,
+  },
+  {
+    id: 'p5AttorneyAddress',
+    label: 'כתובת עורך הדין',
+    type: 'text',
+    defaultValue: 'רח\' אלמריג\' נחף',
+    placeholder: 'רחוב, עיר',
+    group: 'עמוד 5 - כותרת',
+    important: true,
+  },
+  {
+    id: 'p5AttorneyPhone',
+    label: 'טלפון עורך הדין',
+    type: 'text',
+    defaultValue: '050-7761618',
+    placeholder: '0XX-XXXXXXX',
+    group: 'עמוד 5 - כותרת',
+    important: true,
+  },
+  {
+    id: 'p5Email',
+    label: 'דואר אלקטרוני',
+    type: 'text',
+    defaultValue: 'E-MAIL: ananhosenadv@gmail.com',
+    placeholder: 'E-MAIL: example@domain.com',
+    group: 'עמוד 5 - כותרת',
+    important: true,
+  },
+
+  // =============================================
+  // עמוד 5 - כינוי התובע
+  // =============================================
+  {
+    id: 'p5PlaintiffLabel',
+    label: 'כינוי התובע',
+    type: 'text',
+    defaultValue: 'להלן: "התובע"',
+    placeholder: 'להלן: "..."',
+    group: 'עמוד 5 - כינוי התובע',
+    important: true,
+  },
+
+  // =============================================
+  // עמוד 5 - פרטי הנתבעת (Page 5 defendant)
+  // =============================================
+  {
+    id: 'p5DefendantCompanyId',
+    label: 'מספר ח.פ של הנתבעת',
+    type: 'text',
+    defaultValue: '513136895',
+    placeholder: 'XXXXXXXXX',
+    group: 'עמוד 5 - פרטי הנתבעת',
+    important: true,
+  },
+
+  // =============================================
+  // עמוד 5 - כינוי הנתבעת
+  // =============================================
+  {
+    id: 'p5DefendantLabel',
+    label: 'כינוי הנתבעת',
+    type: 'text',
+    defaultValue: 'להלן: "הנתבעת"',
+    placeholder: 'להלן: "..."',
+    group: 'עמוד 5 - כינוי הנתבעת',
+    important: true,
+  },
+
+  // =============================================
+  // בקשה למינוי מומחים (Expert request — page 5)
+  // =============================================
   {
     id: 'expertRequestHeading',
     label: 'כותרת בקשה למינוי מומחים',
     type: 'text',
     defaultValue: 'בקשה למינוי מומחים רפואיים',
     placeholder: 'בקשה למינוי מומחים רפואיים',
-    group: 'בקשה למינוי מומחים (עמוד 5)',
+    group: 'בקשה למינוי מומחים',
     important: true,
   },
   {
@@ -480,7 +634,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     type: 'textarea',
     defaultValue: 'התובע מבקש בזאת למנות לו מומחה רפואי בנושא הנכות הרפואית שלו בתחום האורתופדיה, לצורך בדיקת התובע ומתן חוות דעת בעניין.',
     placeholder: 'טקסט הבקשה...',
-    group: 'בקשה למינוי מומחים (עמוד 5)',
+    group: 'בקשה למינוי מומחים',
     important: true,
   },
   {
@@ -489,7 +643,29 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     type: 'text',
     defaultValue: '*** רצ"ב העתק התיעוד הרפואי שברשותו.',
     placeholder: '*** רצ"ב...',
-    group: 'בקשה למינוי מומחים (עמוד 5)',
+    group: 'בקשה למינוי מומחים',
+    important: true,
+  },
+
+  // =============================================
+  // עמוד 5 - חתימה (Page 5 signature)
+  // =============================================
+  {
+    id: 'p5SignName',
+    label: 'שם עורך הדין לחתימה',
+    type: 'text',
+    defaultValue: 'ענאן חוסיין',
+    placeholder: 'שם עורך הדין',
+    group: 'עמוד 5 - חתימה',
+    important: true,
+  },
+  {
+    id: 'p5SignTitle',
+    label: 'תואר לחתימה',
+    type: 'text',
+    defaultValue: 'ב"כ התובע',
+    placeholder: 'ב"כ התובע',
+    group: 'עמוד 5 - חתימה',
     important: true,
   },
 

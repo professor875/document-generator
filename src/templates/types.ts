@@ -58,6 +58,43 @@ export interface DocumentFields {
   /** Title for the signature line, e.g. 'ב"כ התובע' */
   signatureTitle: string
 
+  // ----- Page 5: Separate header fields -----
+
+  /** Page 5 court name */
+  p5CourtName: string
+  /** Page 5 case number */
+  p5CaseNumber: string
+  /** Page 5 regarding label */
+  p5RegardingLabel: string
+  /** Page 5 plaintiff name */
+  p5PlaintiffName: string
+  /** Page 5 plaintiff ID */
+  p5PlaintiffId: string
+  /** Page 5 plaintiff address */
+  p5PlaintiffAddress: string
+  /** Page 5 plaintiff phone */
+  p5PlaintiffPhone: string
+  /** Page 5 attorney 1 */
+  p5Attorney1: string
+  /** Page 5 attorney 2 */
+  p5Attorney2: string
+  /** Page 5 attorney address */
+  p5AttorneyAddress: string
+  /** Page 5 attorney phone */
+  p5AttorneyPhone: string
+  /** Page 5 email */
+  p5Email: string
+  /** Page 5 plaintiff label */
+  p5PlaintiffLabel: string
+  /** Page 5 defendant company ID */
+  p5DefendantCompanyId: string
+  /** Page 5 defendant label */
+  p5DefendantLabel: string
+  /** Page 5 attorney sign name */
+  p5SignName: string
+  /** Page 5 signature title */
+  p5SignTitle: string
+
   /** Label for the plaintiff, e.g. 'להלן: "התובע"' */
   plaintiffLabel: string
 

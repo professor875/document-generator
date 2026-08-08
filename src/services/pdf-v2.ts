@@ -137,6 +137,25 @@ function mapFormDataToFields(formData: Record<string, string>): DocumentFields {
 
     // Page 4: Legal prayer & Signature
     legalPrayer: getField('legalPrayer'),
+
+    // Page 5: Separate header fields
+    p5CourtName: getField('p5CourtName'),
+    p5CaseNumber: getField('p5CaseNumber'),
+    p5RegardingLabel: getField('p5RegardingLabel'),
+    p5PlaintiffName: getField('p5PlaintiffName'),
+    p5PlaintiffId: getField('p5PlaintiffId'),
+    p5PlaintiffAddress: getField('p5PlaintiffAddress'),
+    p5PlaintiffPhone: getField('p5PlaintiffPhone'),
+    p5Attorney1: getField('p5Attorney1'),
+    p5Attorney2: getField('p5Attorney2'),
+    p5AttorneyAddress: getField('p5AttorneyAddress'),
+    p5AttorneyPhone: getField('p5AttorneyPhone'),
+    p5Email: getField('p5Email'),
+    p5PlaintiffLabel: getField('p5PlaintiffLabel'),
+    p5DefendantCompanyId: getField('p5DefendantCompanyId'),
+    p5DefendantLabel: getField('p5DefendantLabel'),
+    p5SignName: getField('p5SignName'),
+    p5SignTitle: getField('p5SignTitle'),
   }
 }
 
