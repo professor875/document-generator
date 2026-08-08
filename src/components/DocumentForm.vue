@@ -134,13 +134,14 @@ function getFieldNumber(id: string): number {
 const GROUP_NUMBERS: Record<string, number> = {
   'פרטי עורך הדין': 4,
   'הזמנה לדין': 8,
+  'טיפולים רפואיים': 14,
 }
 
 function groupNumber(group: string): number | null {
   return GROUP_NUMBERS[group] ?? null
 }
 
-const HIDE_LABEL_GROUPS = new Set(['פרטי עורך הדין', 'הזמנה לדין'])
+const HIDE_LABEL_GROUPS = new Set(['פרטי עורך הדין', 'הזמנה לדין', 'טיפולים רפואיים'])
 
 function hideLabels(group: string): boolean {
   return HIDE_LABEL_GROUPS.has(group)

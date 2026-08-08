@@ -131,37 +131,8 @@ export interface DocumentFields {
   /** Bus registration number */
   busReg: string
 
-  /** First medical visit date (emergency) */
-  medicalVisit1Date: string
-
-  /** Second medical visit date (family doctor) */
-  medicalVisit2Date: string
-
-  /** Third medical visit date (orthopedics) */
-  medicalVisit3Date: string
-
-  /** Physiotherapy start date */
-  physioStartDate: string
-
-  /** Physiotherapy end date */
-  physioEndDate: string
-
-  /** Fourth medical visit date (orthopedic follow-up) */
-  medicalVisit4Date: string
-
-  /** Imaging exam date */
-  imagingDate: string
-
-  /** Fifth medical visit date (orthopedic follow-up) */
-  medicalVisit5Date: string
-
-  // ----- Page 3: Continued medical & Damages -----
-
-  /** Sixth medical visit date (orthopedic follow-up) */
-  medicalVisit6Date: string
-
-  /** Number of physiotherapy treatments */
-  physioCount: string
+  /** Full medical treatments text, items 5-14 (textarea) */
+  medicalTreatmentsText: string
 
   /** Required claims text, items 15-19 (textarea) */
   claimsText: string
