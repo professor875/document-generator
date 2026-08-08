@@ -125,6 +125,54 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     important: true,
   },
   {
+    id: 'plaintiffName',
+    label: 'שם התובע',
+    type: 'text',
+    defaultValue: 'עבד אלחמיד חג\'אזי',
+    placeholder: 'שם מלא',
+    group: 'פרטי התובע',
+  },
+  {
+    id: 'plaintiffId',
+    label: 'תעודת זהות',
+    type: 'text',
+    defaultValue: '036600500',
+    placeholder: 'XXXXXXXXX',
+    group: 'פרטי התובע',
+  },
+  {
+    id: 'plaintiffAddress',
+    label: 'כתובת התובע',
+    type: 'text',
+    defaultValue: 'מרח\' סיף אל דין, דיר אלאסד',
+    placeholder: 'רחוב, עיר',
+    group: 'פרטי התובע',
+  },
+  {
+    id: 'plaintiffPhone',
+    label: 'טלפון התובע',
+    type: 'text',
+    defaultValue: '050-7761618',
+    placeholder: '0XX-XXXXXXX',
+    group: 'פרטי התובע',
+  },
+  {
+    id: 'plaintiffBirthDate',
+    label: 'תאריך לידת התובע',
+    type: 'text',
+    defaultValue: '05/05/1985',
+    placeholder: 'DD/MM/YYYY',
+    group: 'פרטי התובע',
+  },
+  {
+    id: 'plaintiffCity',
+    label: 'עיר מגורים',
+    type: 'text',
+    defaultValue: 'דיר אלאסד',
+    placeholder: 'שם העיר',
+    group: 'פרטי התובע',
+  },
+  {
     id: 'defendantLabel',
     label: 'כינוי הנתבעת',
     type: 'text',
@@ -132,6 +180,14 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     placeholder: 'להלן: "..."',
     group: 'פרטי הנתבעת',
     important: true,
+  },
+  {
+    id: 'defendantCompanyId',
+    label: 'מספר ח.פ של הנתבעת',
+    type: 'text',
+    defaultValue: '513136895',
+    placeholder: 'XXXXXXXXX',
+    group: 'פרטי הנתבעת',
   },
   {
     id: 'caseInfoBlock',
@@ -145,6 +201,58 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     placeholder: 'פרטי התביעה...',
     group: 'בלוקים של טקסט',
     important: true,
+  },
+
+  // =============================================
+  // פרטי התאונה (Accident details)
+  // =============================================
+  {
+    id: 'accidentDate',
+    label: 'תאריך התאונה',
+    type: 'text',
+    defaultValue: '14.4.2022',
+    placeholder: 'DD.MM.YYYY',
+    group: 'פרטי התאונה',
+  },
+  {
+    id: 'accidentTime',
+    label: 'שעת התאונה',
+    type: 'text',
+    defaultValue: '18:00',
+    placeholder: 'HH:MM',
+    group: 'פרטי התאונה',
+  },
+  {
+    id: 'plaintiffVehicleReg',
+    label: 'מספר רכב התובע',
+    type: 'text',
+    defaultValue: '1065553',
+    placeholder: 'מספר רישוי',
+    group: 'פרטי התאונה',
+  },
+  {
+    id: 'busCompany',
+    label: 'חברת האוטובוס',
+    type: 'text',
+    defaultValue: 'אגד',
+    placeholder: 'שם חברה',
+    group: 'פרטי התאונה',
+  },
+  {
+    id: 'busReg',
+    label: 'מספר רכב האוטובוס',
+    type: 'text',
+    defaultValue: '779969',
+    placeholder: 'מספר רישוי',
+    group: 'פרטי התאונה',
+  },
+  {
+    id: 'policyNumber',
+    label: 'מספר פוליסת ביטוח',
+    type: 'text',
+    defaultValue: '202-312102119821-00',
+    placeholder: 'XXX-XXXXXXXXXXXX-XX',
+    group: 'פרטי התאונה',
   },
 
   // =============================================
@@ -184,7 +292,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     type: 'text',
     defaultValue: 'צדדים :',
     placeholder: 'צדדים :',
-    group: 'פרטי תיק',
+    group: 'כותרות המסמך',
     important: true,
   },
   {
@@ -384,122 +492,5 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     group: 'בקשה למינוי מומחים (עמוד 5)',
     important: true,
   },
-
-  // =============================================
-  // פרטי התובע (Plaintiff details)
-  // =============================================
-  {
-    id: 'plaintiffName',
-    label: 'שם התובע',
-    type: 'text',
-    defaultValue: 'עבד אלחמיד חג\'אזי',
-    placeholder: 'שם מלא',
-    group: 'פרטי התובע',
-  },
-  {
-    id: 'plaintiffId',
-    label: 'תעודת זהות',
-    type: 'text',
-    defaultValue: '036600500',
-    placeholder: 'XXXXXXXXX',
-    group: 'פרטי התובע',
-  },
-  {
-    id: 'plaintiffAddress',
-    label: 'כתובת התובע',
-    type: 'text',
-    defaultValue: 'מרח\' סיף אל דין, דיר אלאסד',
-    placeholder: 'רחוב, עיר',
-    group: 'פרטי התובע',
-  },
-  {
-    id: 'plaintiffPhone',
-    label: 'טלפון התובע',
-    type: 'text',
-    defaultValue: '050-7761618',
-    placeholder: '0XX-XXXXXXX',
-    group: 'פרטי התובע',
-  },
-  {
-    id: 'plaintiffBirthDate',
-    label: 'תאריך לידת התובע',
-    type: 'text',
-    defaultValue: '05/05/1985',
-    placeholder: 'DD/MM/YYYY',
-    group: 'פרטי התובע',
-  },
-  {
-    id: 'plaintiffCity',
-    label: 'עיר מגורים',
-    type: 'text',
-    defaultValue: 'דיר אלאסד',
-    placeholder: 'שם העיר',
-    group: 'פרטי התובע',
-  },
-
-  // =============================================
-  // פרטי הנתבעת (Defendant details)
-  // =============================================
-  {
-    id: 'defendantCompanyId',
-    label: 'מספר ח.פ של הנתבעת',
-    type: 'text',
-    defaultValue: '513136895',
-    placeholder: 'XXXXXXXXX',
-    group: 'פרטי הנתבעת',
-  },
-
-  // =============================================
-  // פרטי התאונה (Accident details)
-  // =============================================
-  {
-    id: 'accidentDate',
-    label: 'תאריך התאונה',
-    type: 'text',
-    defaultValue: '14.4.2022',
-    placeholder: 'DD.MM.YYYY',
-    group: 'פרטי התאונה',
-  },
-  {
-    id: 'accidentTime',
-    label: 'שעת התאונה',
-    type: 'text',
-    defaultValue: '18:00',
-    placeholder: 'HH:MM',
-    group: 'פרטי התאונה',
-  },
-  {
-    id: 'plaintiffVehicleReg',
-    label: 'מספר רכב התובע',
-    type: 'text',
-    defaultValue: '1065553',
-    placeholder: 'מספר רישוי',
-    group: 'פרטי התאונה',
-  },
-  {
-    id: 'busCompany',
-    label: 'חברת האוטובוס',
-    type: 'text',
-    defaultValue: 'אגד',
-    placeholder: 'שם חברה',
-    group: 'פרטי התאונה',
-  },
-  {
-    id: 'busReg',
-    label: 'מספר רכב האוטובוס',
-    type: 'text',
-    defaultValue: '779969',
-    placeholder: 'מספר רישוי',
-    group: 'פרטי התאונה',
-  },
-  {
-    id: 'policyNumber',
-    label: 'מספר פוליסת ביטוח',
-    type: 'text',
-    defaultValue: '202-312102119821-00',
-    placeholder: 'XXX-XXXXXXXXXXXX-XX',
-    group: 'פרטי התאונה',
-  },
-
 
 ]

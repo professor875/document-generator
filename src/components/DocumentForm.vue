@@ -35,7 +35,7 @@
                 :for="field.id"
                 :class="{ 'label--important': field.important }"
               >
-                <span class="field-number">{{ getFieldNumber(field.id) }}.</span>
+                <span v-if="getFieldNumber(field.id)" class="field-number">{{ getFieldNumber(field.id) }}.</span>
                 {{ field.label }}
               </label>
               <textarea
@@ -121,6 +121,7 @@ const fieldNumberMap = computed(() => {
       }
     }
     if (HIDE_LABEL_GROUPS.has(group)) continue
+    if (!field.important) continue
     map[field.id] = counter
     counter++
   }
