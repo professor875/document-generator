@@ -135,13 +135,17 @@ const GROUP_NUMBERS: Record<string, number> = {
   'פרטי עורך הדין': 4,
   'הזמנה לדין': 8,
   'טיפולים רפואיים': 14,
+  'סעדים נדרשים': 15,
+  'נזקים מיוחדים': 16,
+  'נזקים כלליים': 17,
+  'סיכום ובקשות': 18,
 }
 
 function groupNumber(group: string): number | null {
   return GROUP_NUMBERS[group] ?? null
 }
 
-const HIDE_LABEL_GROUPS = new Set(['פרטי עורך הדין', 'הזמנה לדין', 'טיפולים רפואיים'])
+const HIDE_LABEL_GROUPS = new Set(['פרטי עורך הדין', 'הזמנה לדין', 'טיפולים רפואיים', 'סעדים נדרשים', 'נזקים מיוחדים', 'נזקים כלליים', 'סיכום ובקשות'])
 
 function hideLabels(group: string): boolean {
   return HIDE_LABEL_GROUPS.has(group)
