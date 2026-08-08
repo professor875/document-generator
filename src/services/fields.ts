@@ -26,6 +26,8 @@ export interface FieldDefinition {
   defaultValue: string
   placeholder?: string
   group?: string
+  /** When true the field label is displayed in red in the form UI */
+  important?: boolean
 }
 
 // -------------------------------------------------------------------
@@ -43,6 +45,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: 'בבית המשפט השלום בחיפה',
     placeholder: 'בבית המשפט...',
     group: 'פרטי תיק',
+    important: true,
   },
   {
     id: 'caseNumber',
@@ -51,6 +54,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: 'ת"א 07-26-',
     placeholder: 'ת"א XX-XX-',
     group: 'פרטי תיק',
+    important: true,
   },
   {
     id: 'courtFee',
@@ -59,6 +63,124 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: '839',
     placeholder: 'סכום',
     group: 'פרטי תיק',
+    important: true,
+  },
+  {
+    id: 'partiesHeading',
+    label: 'כותרת צדדים',
+    type: 'text',
+    defaultValue: 'צדדים :',
+    placeholder: 'צדדים :',
+    group: 'פרטי תיק',
+    important: true,
+  },
+  {
+    id: 'regardingLabel',
+    label: 'כותרת בעניין',
+    type: 'text',
+    defaultValue: 'בעניין :',
+    placeholder: 'בעניין :',
+    group: 'פרטי תיק',
+    important: true,
+  },
+  {
+    id: 'summonsHeading',
+    label: 'כותרת הזמנה לדין',
+    type: 'text',
+    defaultValue: 'הזמנה לדין',
+    placeholder: 'הזמנה לדין',
+    group: 'כותרות המסמך',
+    important: true,
+  },
+  {
+    id: 'claimHeading',
+    label: 'כותרת כתב תביעה',
+    type: 'text',
+    defaultValue: 'כ ת ב    ת ב י ע ה',
+    placeholder: 'כ ת ב    ת ב י ע ה',
+    group: 'כותרות המסמך',
+    important: true,
+  },
+  {
+    id: 'accidentHeading',
+    label: 'כותרת אירוע התאונה',
+    type: 'text',
+    defaultValue: 'אירוע התאונה :',
+    placeholder: 'אירוע התאונה :',
+    group: 'כותרות המסמך',
+    important: true,
+  },
+  {
+    id: 'accidentLegalText',
+    label: 'סעיף 4 - סיווג משפטי של התאונה',
+    type: 'textarea',
+    defaultValue: 'התאונה אירעה במהלך שימוש ברכב מנועי כהגדרתו בחוק פיצויים לנפגעי תאונות דרכים, התשל"ה–1975, ולפיכך מהווה "תאונת דרכים" כמשמעותה בחוק. (להלן : "התאונה").',
+    placeholder: 'סיווג משפטי...',
+    group: 'כותרות המסמך',
+    important: true,
+  },
+  {
+    id: 'medicalHeading',
+    label: 'כותרת טיפולים רפואיים',
+    type: 'text',
+    defaultValue: 'טיפולים רפואיים :',
+    placeholder: 'טיפולים רפואיים :',
+    group: 'כותרות המסמך',
+    important: true,
+  },
+  {
+    id: 'remediesHeading',
+    label: 'כותרת סעדים נדרשים',
+    type: 'text',
+    defaultValue: 'סעדים נדרשים :',
+    placeholder: 'סעדים נדרשים :',
+    group: 'כותרות המסמך',
+    important: true,
+  },
+  {
+    id: 'specialDamagesHeading',
+    label: 'כותרת נזקים מיוחדים',
+    type: 'text',
+    defaultValue: 'א. נזקים מיוחדים',
+    placeholder: 'א. נזקים מיוחדים',
+    group: 'כותרות המסמך',
+    important: true,
+  },
+  {
+    id: 'generalDamagesHeading',
+    label: 'כותרת נזקים כלליים',
+    type: 'text',
+    defaultValue: 'ב. נזקים כלליים',
+    placeholder: 'ב. נזקים כלליים',
+    group: 'כותרות המסמך',
+    important: true,
+  },
+  {
+    id: 'expertRequestHeading',
+    label: 'כותרת בקשה למינוי מומחים',
+    type: 'text',
+    defaultValue: 'בקשה למינוי מומחים רפואיים',
+    placeholder: 'בקשה למינוי מומחים רפואיים',
+    group: 'בקשה למינוי מומחים (עמוד 5)',
+    important: true,
+  },
+  {
+    id: 'expertRequestBody',
+    label: 'טקסט בקשה למינוי מומחים',
+    type: 'textarea',
+    defaultValue: 'התובע מבקש בזאת למנות לו מומחה רפואי בנושא הנכות הרפואית שלו בתחום האורתופדיה, לצורך בדיקת התובע ומתן חוות דעת בעניין.',
+    placeholder: 'טקסט הבקשה...',
+    group: 'בקשה למינוי מומחים (עמוד 5)',
+    important: true,
+  },
+  {
+    id: 'expertRequestNote',
+    label: 'הערת תיעוד רפואי מצורף',
+    type: 'text',
+    defaultValue: '*** רצ"ב העתק התיעוד הרפואי שברשותו.',
+    placeholder: '*** רצ"ב...',
+    group: 'בקשה למינוי מומחים (עמוד 5)',
+    important: true,
   },
 
   // =============================================
@@ -119,6 +241,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: 'להלן: "התובע"',
     placeholder: 'להלן: "..."',
     group: 'פרטי התובע',
+    important: true,
   },
 
   // =============================================
@@ -131,6 +254,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: 'ע"י ב"כ עוה"ד ענאן חוסיין מ.ר 100020',
     placeholder: 'ע"י ב"כ עוה"ד שם מ.ר XXXXXX',
     group: 'פרטי עורך הדין',
+    important: true,
   },
   {
     id: 'attorney2',
@@ -139,6 +263,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: 'ו/או עוה"ד מאריא עמאש מ.ר 101927',
     placeholder: 'ו/או עוה"ד שם מ.ר XXXXXX',
     group: 'פרטי עורך הדין',
+    important: true,
   },
   {
     id: 'attorneyAddress',
@@ -147,6 +272,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: 'רח\' אלמריג\' נחף',
     placeholder: 'רחוב, עיר',
     group: 'פרטי עורך הדין',
+    important: true,
   },
   {
     id: 'attorneyPhone',
@@ -155,6 +281,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: '050-7761618',
     placeholder: '0XX-XXXXXXX',
     group: 'פרטי עורך הדין',
+    important: true,
   },
   {
     id: 'email',
@@ -163,6 +290,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: 'E-MAIL: ananhosenadv@gmail.com',
     placeholder: 'E-MAIL: example@domain.com',
     group: 'פרטי עורך הדין',
+    important: true,
   },
   {
     id: 'attorneySignName',
@@ -171,6 +299,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: 'ענאן חוסיין',
     placeholder: 'שם עורך הדין',
     group: 'פרטי עורך הדין',
+    important: true,
   },
 
   // =============================================
@@ -191,6 +320,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: 'להלן: "הנתבעת"',
     placeholder: 'להלן: "..."',
     group: 'פרטי הנתבעת',
+    important: true,
   },
 
   // =============================================
@@ -339,6 +469,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: '10,000',
     placeholder: 'סכום',
     group: 'נזקים',
+    important: true,
   },
   {
     id: 'thirdPartyHelp',
@@ -347,6 +478,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: '10,000',
     placeholder: 'סכום',
     group: 'נזקים',
+    important: true,
   },
   {
     id: 'pastLostWages',
@@ -371,6 +503,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
 האם קיים הליך נוסף בבית משפט או בית דין: לא.`,
     placeholder: 'פרטי התביעה...',
     group: 'בלוקים של טקסט',
+    important: true,
   },
   {
     id: 'summonsText',
@@ -379,6 +512,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: 'הואיל והתובע הגיש כתב תביעה זה נגדך, אתה מוזמן להגיש כתב הגנה בתוך שישים ימים מיום שהומצאה לך הזמנה זו. לתשומת לבך, אם לא תגיש כתב הגנה אזי לפי תקנה 130 לתקנות סדר הדין האזרחי, התשע"ט-2018, תהיה לתובעת הזכות לקבל פסק דין שלא בפניך.',
     placeholder: 'טקסט הזמנה לדין...',
     group: 'בלוקים של טקסט',
+    important: true,
   },
   {
     id: 'claimsText',
@@ -395,6 +529,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
 19. ואלה, בין היתר, הנזקים שנגרמו לתובע כתוצאה ישירה ו/או עקיפה מהתאונה :`,
     placeholder: 'סעדים נדרשים...',
     group: 'בלוקים של טקסט',
+    important: true,
   },
   {
     id: 'legalPrayer',
@@ -409,6 +544,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
 23. אשר על כן, מתבקש בית המשפט הנכבד להזמין את הנתבעת לדין ולחייבה לפצות את התובע בגין נזקיו עפ"י החלוקה המפורטת לעיל ו/או כל חלוקה אחרת שתימצא לנכון, בצירוף הפרשי הצמדה וריבית כחוק. כן יתבקש בית המשפט הנכבד לחייב את הנתבעת בהוצאות משפט ושכ"ט עו"ד בצרוף הפרשי הצמדה, ריבית ומע"מ כחוק.`,
     placeholder: 'סיכום ובקשות...',
     group: 'בלוקים של טקסט',
+    important: true,
   },
   {
     id: 'specialDamages',
@@ -419,6 +555,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
 5. הפסדי שכר בעבר: 30,000 ש"ח`,
     placeholder: 'נזקים מיוחדים...',
     group: 'בלוקים של טקסט',
+    important: true,
   },
   {
     id: 'generalDamages',
@@ -429,5 +566,6 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
 3. הוצאות רפואיות ונסיעות לעתיד.`,
     placeholder: 'נזקים כלליים...',
     group: 'בלוקים של טקסט',
+    important: true,
   },
 ]

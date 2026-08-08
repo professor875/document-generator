@@ -28,24 +28,21 @@ export function renderPage5(layout: PageLayout, fields: DocumentFields): void {
   // ===============================================================
   // SECTION: "בקשה למינוי מומחים רפואיים" heading — bold underlined centered, NO box
   // ===============================================================
-  layout.addCenteredText('בקשה למינוי מומחים רפואיים', { ...bold, fontSize: 10, underline: true })
+  layout.addCenteredText(fields.expertRequestHeading, { ...bold, fontSize: 10, underline: true })
 
   layout.addSpacing(10)
 
   // ===============================================================
   // SECTION: Request body (plain text, NO border)
   // ===============================================================
-  layout.addRightText(
-    'התובע מבקש בזאת למנות לו מומחה רפואי בנושא הנכות הרפואית שלו בתחום האורתופדיה, לצורך בדיקת התובע ומתן חוות דעת בעניין.',
-    { fontSize: 9 }
-  )
+  layout.addRightText(fields.expertRequestBody, { fontSize: 9 })
 
   layout.addSpacing(10)
 
   // ===============================================================
   // SECTION: Attached medical documentation note
   // ===============================================================
-  layout.addRightText('*** רצ"ב העתק התיעוד הרפואי שברשותו.', { ...bold, fontSize: 9 })
+  layout.addRightText(fields.expertRequestNote, { ...bold, fontSize: 9 })
 
   layout.addSpacing(30)
 

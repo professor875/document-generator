@@ -27,7 +27,13 @@
               class="field"
               :class="{ 'field--full': field.type === 'textarea' }"
             >
-              <label :for="field.id">{{ field.label }}</label>
+              <label
+                :for="field.id"
+                :class="{ 'label--important': field.important }"
+              >
+                <span class="field-number">{{ getFieldNumber(field.id) }}.</span>
+                {{ field.label }}
+              </label>
               <textarea
                 v-if="field.type === 'textarea'"
                 :id="field.id"
@@ -95,6 +101,18 @@ const groupedFields = computed(() => {
 
 function hasTextarea(fields: FieldDefinition[]): boolean {
   return fields.some(f => f.type === 'textarea')
+}
+
+const fieldNumberMap = computed(() => {
+  const map: Record<string, number> = {}
+  DOCUMENT_FIELDS.forEach((field, index) => {
+    map[field.id] = index + 1
+  })
+  return map
+})
+
+function getFieldNumber(id: string): number {
+  return fieldNumberMap.value[id] ?? 0
 }
 
 // Holds the object URL for the in-page PDF preview iframe
@@ -252,6 +270,21 @@ onBeforeUnmount(() => {
   font-size: 0.85rem;
   font-weight: 500;
   color: #555;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.field-number {
+  font-weight: 700;
+  font-size: 0.8rem;
+  min-width: 1.5rem;
+  color: inherit;
+}
+
+.field label.label--important {
+  color: #dc2626;
+  font-weight: 600;
 }
 
 .field input,

@@ -72,7 +72,7 @@ export function renderPage3(layout: PageLayout, fields: DocumentFields): void {
   // ===============================================================
   // SECTION: "סעדים נדרשים" heading — bold underlined, NO box
   // ===============================================================
-  layout.addRightText('סעדים נדרשים :', { ...bold, fontSize: 10, underline: true })
+  layout.addRightText(fields.remediesHeading, { ...bold, fontSize: 10, underline: true })
 
   layout.addSpacing(6)
 
@@ -89,7 +89,7 @@ export function renderPage3(layout: PageLayout, fields: DocumentFields): void {
   // ===============================================================
   // SECTION: Special damages — heading as bold underlined, NO box
   // ===============================================================
-  layout.addRightText('א. נזקים מיוחדים', { ...bold, fontSize: 9, underline: true })
+  layout.addRightText(fields.specialDamagesHeading, { ...bold, fontSize: 9, underline: true })
 
   layout.addSpacing(4)
 
@@ -105,7 +105,7 @@ export function renderPage3(layout: PageLayout, fields: DocumentFields): void {
   // ===============================================================
   // SECTION: General damages — heading as bold underlined, NO box
   // ===============================================================
-  layout.addRightText('ב. נזקים כלליים', { ...bold, fontSize: 9, underline: true })
+  layout.addRightText(fields.generalDamagesHeading, { ...bold, fontSize: 9, underline: true })
 
   layout.addSpacing(4)
 

@@ -27,7 +27,7 @@ export function renderHeader(layout: PageLayout, fields: DocumentFields): void {
   layout.addSpacing(8)
 
   // "בעניין:" label — right-aligned, no border
-  layout.addRightLabel('בעניין :')
+  layout.addRightLabel(fields.regardingLabel)
 
   layout.addSpacing(2)
 

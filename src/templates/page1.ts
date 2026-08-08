@@ -44,7 +44,7 @@ export function renderPage1(layout: PageLayout, fields: DocumentFields): void {
   // ===============================================================
   // SECTION: "הזמנה לדין" heading — bold underlined centered, NO box
   // ===============================================================
-  layout.addCenteredText('הזמנה לדין', { ...bold, fontSize: 10, underline: true })
+  layout.addCenteredText(fields.summonsHeading, { ...bold, fontSize: 10, underline: true })
 
   layout.addSpacing(6)
 
@@ -58,14 +58,14 @@ export function renderPage1(layout: PageLayout, fields: DocumentFields): void {
   // ===============================================================
   // SECTION: "כתב תביעה" heading — bold underlined centered, NO box
   // ===============================================================
-  layout.addCenteredText('כ ת ב    ת ב י ע ה', { ...bold, fontSize: 11, underline: true })
+  layout.addCenteredText(fields.claimHeading, { ...bold, fontSize: 11, underline: true })
 
   layout.addSpacing(8)
 
   // ===============================================================
   // SECTION: "צדדים:" heading — bold underlined right-aligned, NO box
   // ===============================================================
-  layout.addRightText('צדדים :', { ...bold, fontSize: 9, underline: true })
+  layout.addRightText(fields.partiesHeading, { ...bold, fontSize: 9, underline: true })
 
   layout.addSpacing(6)
 

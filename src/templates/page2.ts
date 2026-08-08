@@ -22,7 +22,7 @@ export function renderPage2(layout: PageLayout, fields: DocumentFields): void {
   // ===============================================================
   // SECTION: "אירוע התאונה" heading — bold underlined, NO box
   // ===============================================================
-  layout.addRightText('אירוע התאונה :', { ...bold, fontSize: 10, underline: true })
+  layout.addRightText(fields.accidentHeading, { ...bold, fontSize: 10, underline: true })
 
   layout.addSpacing(6)
 
@@ -41,7 +41,7 @@ export function renderPage2(layout: PageLayout, fields: DocumentFields): void {
   // ===============================================================
   layout.addNumberedParagraph(
     '4.',
-    'התאונה אירעה במהלך שימוש ברכב מנועי כהגדרתו בחוק פיצויים לנפגעי תאונות דרכים, התשל"ה–1975, ולפיכך מהווה "תאונת דרכים" כמשמעותה בחוק. (להלן : "התאונה").',
+    fields.accidentLegalText,
   )
 
   layout.addSpacing(6)
@@ -60,7 +60,7 @@ export function renderPage2(layout: PageLayout, fields: DocumentFields): void {
   // ===============================================================
   // SECTION: "טיפולים רפואיים" heading — bold underlined, NO box
   // ===============================================================
-  layout.addRightText('טיפולים רפואיים :', { ...bold, fontSize: 10, underline: true })
+  layout.addRightText(fields.medicalHeading, { ...bold, fontSize: 10, underline: true })
 
   layout.addSpacing(6)
 

@@ -72,6 +72,45 @@ export interface DocumentFields {
   /** Court fee amount, e.g. "839" */
   courtFee: string
 
+  /** Parties heading, e.g. "צדדים :" */
+  partiesHeading: string
+
+  /** "בעניין :" label */
+  regardingLabel: string
+
+  /** "הזמנה לדין" heading */
+  summonsHeading: string
+
+  /** "כ ת ב    ת ב י ע ה" heading */
+  claimHeading: string
+
+  /** "אירוע התאונה :" heading */
+  accidentHeading: string
+
+  /** Item 4 — legal classification of the accident */
+  accidentLegalText: string
+
+  /** "טיפולים רפואיים :" heading */
+  medicalHeading: string
+
+  /** "סעדים נדרשים :" heading */
+  remediesHeading: string
+
+  /** "א. נזקים מיוחדים" heading */
+  specialDamagesHeading: string
+
+  /** "ב. נזקים כלליים" heading */
+  generalDamagesHeading: string
+
+  /** "בקשה למינוי מומחים רפואיים" heading (page 5) */
+  expertRequestHeading: string
+
+  /** Expert request body text (page 5) */
+  expertRequestBody: string
+
+  /** "*** רצ"ב העתק..." note (page 5) */
+  expertRequestNote: string
+
   /** Full case type/amounts text block (textarea) */
   caseInfoBlock: string
 
