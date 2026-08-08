@@ -466,7 +466,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
   },
 
   // =============================================
-  // עמוד 5 - כותרת (Page 5 header)
+  // עמוד 5 - פרטי בית משפט (Page 5 court details)
   // =============================================
   {
     id: 'p5CourtName',
@@ -474,7 +474,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     type: 'text',
     defaultValue: 'בבית המשפט השלום בחיפה',
     placeholder: 'בבית המשפט...',
-    group: 'עמוד 5 - כותרת',
+    group: 'עמוד 5 - פרטי בית משפט',
     important: true,
   },
   {
@@ -483,7 +483,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     type: 'text',
     defaultValue: 'ת"א 07-26-',
     placeholder: 'ת"א XX-XX-',
-    group: 'עמוד 5 - כותרת',
+    group: 'עמוד 5 - פרטי בית משפט',
     important: true,
   },
   {
@@ -492,9 +492,13 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     type: 'text',
     defaultValue: 'בעניין :',
     placeholder: 'בעניין :',
-    group: 'עמוד 5 - כותרת',
+    group: 'עמוד 5 - פרטי בית משפט',
     important: true,
   },
+
+  // =============================================
+  // עמוד 5 - כותרת (Page 5 header — rest of details)
+  // =============================================
   {
     id: 'p5PlaintiffName',
     label: 'שם התובע',
@@ -576,6 +580,15 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     group: 'עמוד 5 - כותרת',
     important: true,
   },
+  {
+    id: 'p5DefendantCompanyId',
+    label: 'מספר ח.פ של הנתבעת',
+    type: 'text',
+    defaultValue: '513136895',
+    placeholder: 'XXXXXXXXX',
+    group: 'עמוד 5 - כותרת',
+    important: true,
+  },
 
   // =============================================
   // עמוד 5 - כינוי התובע
@@ -587,19 +600,6 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: 'להלן: "התובע"',
     placeholder: 'להלן: "..."',
     group: 'עמוד 5 - כינוי התובע',
-    important: true,
-  },
-
-  // =============================================
-  // עמוד 5 - פרטי הנתבעת (Page 5 defendant)
-  // =============================================
-  {
-    id: 'p5DefendantCompanyId',
-    label: 'מספר ח.פ של הנתבעת',
-    type: 'text',
-    defaultValue: '513136895',
-    placeholder: 'XXXXXXXXX',
-    group: 'עמוד 5 - פרטי הנתבעת',
     important: true,
   },
 
@@ -617,7 +617,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
   },
 
   // =============================================
-  // בקשה למינוי מומחים (Expert request — page 5)
+  // עמוד 5 - כותרת בקשה
   // =============================================
   {
     id: 'expertRequestHeading',
@@ -625,16 +625,20 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     type: 'text',
     defaultValue: 'בקשה למינוי מומחים רפואיים',
     placeholder: 'בקשה למינוי מומחים רפואיים',
-    group: 'בקשה למינוי מומחים',
+    group: 'עמוד 5 - כותרת בקשה',
     important: true,
   },
+
+  // =============================================
+  // עמוד 5 - בקשה וחתימה (Expert request body + note + signature)
+  // =============================================
   {
     id: 'expertRequestBody',
     label: 'טקסט בקשה למינוי מומחים',
     type: 'textarea',
     defaultValue: 'התובע מבקש בזאת למנות לו מומחה רפואי בנושא הנכות הרפואית שלו בתחום האורתופדיה, לצורך בדיקת התובע ומתן חוות דעת בעניין.',
     placeholder: 'טקסט הבקשה...',
-    group: 'בקשה למינוי מומחים',
+    group: 'עמוד 5 - בקשה וחתימה',
     important: true,
   },
   {
@@ -643,20 +647,16 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     type: 'text',
     defaultValue: '*** רצ"ב העתק התיעוד הרפואי שברשותו.',
     placeholder: '*** רצ"ב...',
-    group: 'בקשה למינוי מומחים',
+    group: 'עמוד 5 - בקשה וחתימה',
     important: true,
   },
-
-  // =============================================
-  // עמוד 5 - חתימה (Page 5 signature)
-  // =============================================
   {
     id: 'p5SignName',
     label: 'שם עורך הדין לחתימה',
     type: 'text',
     defaultValue: 'ענאן חוסיין',
     placeholder: 'שם עורך הדין',
-    group: 'עמוד 5 - חתימה',
+    group: 'עמוד 5 - בקשה וחתימה',
     important: true,
   },
   {
@@ -665,7 +665,7 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     type: 'text',
     defaultValue: 'ב"כ התובע',
     placeholder: 'ב"כ התובע',
-    group: 'עמוד 5 - חתימה',
+    group: 'עמוד 5 - בקשה וחתימה',
     important: true,
   },
 
