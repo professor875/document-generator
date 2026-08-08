@@ -109,9 +109,21 @@ function hasTextarea(fields: FieldDefinition[]): boolean {
 
 const fieldNumberMap = computed(() => {
   const map: Record<string, number> = {}
-  DOCUMENT_FIELDS.forEach((field, index) => {
-    map[field.id] = index + 1
-  })
+  let counter = 1
+  const seenGroups = new Set<string>()
+  for (const field of DOCUMENT_FIELDS) {
+    const group = field.group || 'Other'
+    if (!seenGroups.has(group)) {
+      seenGroups.add(group)
+      const gn = GROUP_NUMBERS[group]
+      if (gn !== undefined && counter <= gn) {
+        counter = gn + 1
+      }
+    }
+    if (HIDE_LABEL_GROUPS.has(group)) continue
+    map[field.id] = counter
+    counter++
+  }
   return map
 })
 
