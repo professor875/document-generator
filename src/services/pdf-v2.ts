@@ -107,7 +107,6 @@ function mapFormDataToFields(formData: Record<string, string>): DocumentFields {
 
     // Page 1 body
     policyNumber: getField('policyNumber'),
-    courtFee: getField('courtFee'),
     partiesHeading: getField('partiesHeading'),
     regardingLabel: getField('regardingLabel'),
     summonsHeading: getField('summonsHeading'),
@@ -142,9 +141,6 @@ function mapFormDataToFields(formData: Record<string, string>): DocumentFields {
     // Page 3: Continued medical & Damages
     medicalVisit6Date: getField('medicalVisit6Date'),
     physioCount: getField('physioCount'),
-    medicalExpenses: getField('medicalExpenses'),
-    thirdPartyHelp: getField('thirdPartyHelp'),
-    pastLostWages: getField('pastLostWages'),
     claimsText: getField('claimsText'),
     specialDamages: getField('specialDamages'),
     generalDamages: getField('generalDamages'),

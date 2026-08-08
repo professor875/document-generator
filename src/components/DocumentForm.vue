@@ -18,7 +18,10 @@
     <form @submit.prevent="handleGenerate">
       <template v-for="(fields, group) in groupedFields" :key="group">
         <fieldset class="group">
-          <legend class="group-legend">{{ group }}</legend>
+          <legend class="group-legend" :class="{ 'group-legend--important': groupNumber(group as string) }">
+            <span v-if="groupNumber(group as string)" class="group-number">{{ groupNumber(group as string) }}.</span>
+            {{ group }}
+          </legend>
 
           <div class="group-fields" :class="{ 'group-fields--full': hasTextarea(fields) }">
             <div
@@ -28,6 +31,7 @@
               :class="{ 'field--full': field.type === 'textarea' }"
             >
               <label
+                v-if="!hideLabels(group as string)"
                 :for="field.id"
                 :class="{ 'label--important': field.important }"
               >
@@ -113,6 +117,20 @@ const fieldNumberMap = computed(() => {
 
 function getFieldNumber(id: string): number {
   return fieldNumberMap.value[id] ?? 0
+}
+
+const GROUP_NUMBERS: Record<string, number> = {
+  'פרטי עורך הדין': 4,
+}
+
+function groupNumber(group: string): number | null {
+  return GROUP_NUMBERS[group] ?? null
+}
+
+const HIDE_LABEL_GROUPS = new Set(['פרטי עורך הדין'])
+
+function hideLabels(group: string): boolean {
+  return HIDE_LABEL_GROUPS.has(group)
 }
 
 // Holds the object URL for the in-page PDF preview iframe
@@ -241,6 +259,17 @@ onBeforeUnmount(() => {
   color: #1e3a5f;
   padding: 0 0.5rem;
   background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.group-number {
+  font-weight: 700;
+}
+
+.group-legend--important {
+  color: #dc2626;
 }
 
 /* 3-col grid on desktop; textarea groups stay single-col */

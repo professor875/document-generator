@@ -69,9 +69,6 @@ export interface DocumentFields {
   /** Insurance policy number */
   policyNumber: string
 
-  /** Court fee amount, e.g. "839" */
-  courtFee: string
-
   /** Parties heading, e.g. "צדדים :" */
   partiesHeading: string
 
@@ -165,15 +162,6 @@ export interface DocumentFields {
 
   /** Number of physiotherapy treatments */
   physioCount: string
-
-  /** Medical expenses amount in NIS */
-  medicalExpenses: string
-
-  /** Third-party help expenses in NIS */
-  thirdPartyHelp: string
-
-  /** Past lost wages amount in NIS */
-  pastLostWages: string
 
   /** Required claims text, items 15-19 (textarea) */
   claimsText: string
