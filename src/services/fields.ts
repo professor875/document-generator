@@ -143,14 +143,41 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     important: true,
   },
   {
+    id: 'caseInfoBlock',
+    label: 'פרטי התביעה והאגרה',
+    type: 'textarea',
+    defaultValue: `מהות התביעה: פיצויים בגין נזקי גוף עקב ת.ד (פלת"ד).
+סכום התביעה : כגבול סמכותו של בית המשפט
+סכום האגרה שיש לשלם: 839 בהתאם לפריט 34 לתוספת של תקנות בתי המשפט (אגרות),
+תשס"ז-2007.
+האם קיים הליך נוסף בבית משפט או בית דין: לא.`,
+    placeholder: 'פרטי התביעה...',
+    group: 'בלוקים של טקסט',
+    important: true,
+  },
+
+  // =============================================
+  // הזמנה לדין (Summons — heading + body)
+  // =============================================
+  {
     id: 'summonsHeading',
     label: 'כותרת הזמנה לדין',
     type: 'text',
     defaultValue: 'הזמנה לדין',
     placeholder: 'הזמנה לדין',
-    group: 'כותרות המסמך',
+    group: 'הזמנה לדין',
     important: true,
   },
+  {
+    id: 'summonsText',
+    label: 'טקסט הזמנה לדין',
+    type: 'textarea',
+    defaultValue: 'הואיל והתובע הגיש כתב תביעה זה נגדך, אתה מוזמן להגיש כתב הגנה בתוך שישים ימים מיום שהומצאה לך הזמנה זו. לתשומת לבך, אם לא תגיש כתב הגנה אזי לפי תקנה 130 לתקנות סדר הדין האזרחי, התשע"ט-2018, תהיה לתובעת הזכות לקבל פסק דין שלא בפניך.',
+    placeholder: 'טקסט הזמנה לדין...',
+    group: 'הזמנה לדין',
+    important: true,
+  },
+
   {
     id: 'claimHeading',
     label: 'כותרת כתב תביעה',
@@ -158,6 +185,15 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: 'כ ת ב    ת ב י ע ה',
     placeholder: 'כ ת ב    ת ב י ע ה',
     group: 'כותרות המסמך',
+    important: true,
+  },
+  {
+    id: 'partiesHeading',
+    label: 'כותרת צדדים',
+    type: 'text',
+    defaultValue: 'צדדים :',
+    placeholder: 'צדדים :',
+    group: 'פרטי תיק',
     important: true,
   },
   {
@@ -176,15 +212,6 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     defaultValue: 'התאונה אירעה במהלך שימוש ברכב מנועי כהגדרתו בחוק פיצויים לנפגעי תאונות דרכים, התשל"ה–1975, ולפיכך מהווה "תאונת דרכים" כמשמעותה בחוק. (להלן : "התאונה").',
     placeholder: 'סיווג משפטי...',
     group: 'כותרות המסמך',
-    important: true,
-  },
-  {
-    id: 'partiesHeading',
-    label: 'כותרת צדדים',
-    type: 'text',
-    defaultValue: 'צדדים :',
-    placeholder: 'צדדים :',
-    group: 'פרטי תיק',
     important: true,
   },
   {
@@ -458,28 +485,6 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
   // =============================================
   // בלוקים של טקסט (Text blocks — textarea fields)
   // =============================================
-  {
-    id: 'caseInfoBlock',
-    label: 'פרטי התביעה והאגרה',
-    type: 'textarea',
-    defaultValue: `מהות התביעה: פיצויים בגין נזקי גוף עקב ת.ד (פלת"ד).
-סכום התביעה : כגבול סמכותו של בית המשפט
-סכום האגרה שיש לשלם: 839 בהתאם לפריט 34 לתוספת של תקנות בתי המשפט (אגרות),
-תשס"ז-2007.
-האם קיים הליך נוסף בבית משפט או בית דין: לא.`,
-    placeholder: 'פרטי התביעה...',
-    group: 'בלוקים של טקסט',
-    important: true,
-  },
-  {
-    id: 'summonsText',
-    label: 'טקסט הזמנה לדין',
-    type: 'textarea',
-    defaultValue: 'הואיל והתובע הגיש כתב תביעה זה נגדך, אתה מוזמן להגיש כתב הגנה בתוך שישים ימים מיום שהומצאה לך הזמנה זו. לתשומת לבך, אם לא תגיש כתב הגנה אזי לפי תקנה 130 לתקנות סדר הדין האזרחי, התשע"ט-2018, תהיה לתובעת הזכות לקבל פסק דין שלא בפניך.',
-    placeholder: 'טקסט הזמנה לדין...',
-    group: 'בלוקים של טקסט',
-    important: true,
-  },
   {
     id: 'claimsText',
     label: 'סעדים נדרשים (סעיפים 15-19)',
