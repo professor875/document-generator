@@ -101,6 +101,7 @@ function mapFormDataToFields(formData: Record<string, string>): DocumentFields {
     attorneyPhone: getField('attorneyPhone'),
     email: getField('email'),
     attorneySignName: getField('attorneySignName'),
+    signatureTitle: getField('signatureTitle'),
     plaintiffLabel: getField('plaintiffLabel'),
     defendantLabel: getField('defendantLabel'),
     defendantCompanyId: getField('defendantCompanyId'),

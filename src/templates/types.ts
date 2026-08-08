@@ -55,6 +55,9 @@ export interface DocumentFields {
   /** Attorney name for the signature line */
   attorneySignName: string
 
+  /** Title for the signature line, e.g. 'ב"כ התובע' */
+  signatureTitle: string
+
   /** Label for the plaintiff, e.g. 'להלן: "התובע"' */
   plaintiffLabel: string
 

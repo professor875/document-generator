@@ -114,15 +114,6 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     group: 'פרטי עורך הדין',
     important: true,
   },
-  {
-    id: 'attorneySignName',
-    label: 'שם עורך הדין לחתימה',
-    type: 'text',
-    defaultValue: 'ענאן חוסיין',
-    placeholder: 'שם עורך הדין',
-    group: 'פרטי עורך הדין',
-    important: true,
-  },
 
   {
     id: 'plaintiffLabel',
@@ -341,6 +332,28 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
 23. אשר על כן, מתבקש בית המשפט הנכבד להזמין את הנתבעת לדין ולחייבה לפצות את התובע בגין נזקיו עפ"י החלוקה המפורטת לעיל ו/או כל חלוקה אחרת שתימצא לנכון, בצירוף הפרשי הצמדה וריבית כחוק. כן יתבקש בית המשפט הנכבד לחייב את הנתבעת בהוצאות משפט ושכ"ט עו"ד בצרוף הפרשי הצמדה, ריבית ומע"מ כחוק.`,
     placeholder: 'סיכום ובקשות...',
     group: 'סיכום ובקשות',
+    important: true,
+  },
+
+  // =============================================
+  // חתימת עורך הדין (Attorney signature)
+  // =============================================
+  {
+    id: 'attorneySignName',
+    label: 'שם עורך הדין לחתימה',
+    type: 'text',
+    defaultValue: 'ענאן חוסיין',
+    placeholder: 'שם עורך הדין',
+    group: 'חתימת עורך הדין',
+    important: true,
+  },
+  {
+    id: 'signatureTitle',
+    label: 'תואר לחתימה',
+    type: 'text',
+    defaultValue: 'ב"כ התובע',
+    placeholder: 'ב"כ התובע',
+    group: 'חתימת עורך הדין',
     important: true,
   },
 

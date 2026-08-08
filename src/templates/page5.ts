@@ -53,7 +53,7 @@ export function renderPage5(layout: PageLayout, fields: DocumentFields): void {
   layout.addSpacing(4)
   layout.addCenteredText(`${fields.attorneySignName},עו"ד`, { ...bold, fontSize: 10 })
   layout.addSpacing(2)
-  layout.addCenteredText('ב"כ התובע', { fontSize: 9 })
+  layout.addCenteredText(fields.signatureTitle, { fontSize: 9 })
 
   // ===============================================================
   // SECTION: Page number footer
