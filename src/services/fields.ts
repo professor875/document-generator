@@ -115,15 +115,9 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     important: true,
   },
 
-  {
-    id: 'plaintiffLabel',
-    label: 'כינוי התובע',
-    type: 'text',
-    defaultValue: 'להלן: "התובע"',
-    placeholder: 'להלן: "..."',
-    group: 'פרטי התובע',
-    important: true,
-  },
+  // =============================================
+  // פרטי התובע (Plaintiff personal details — non-numbered, between group 4 and field 5)
+  // =============================================
   {
     id: 'plaintiffName',
     label: 'שם התובע',
@@ -172,6 +166,28 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     placeholder: 'שם העיר',
     group: 'פרטי התובע',
   },
+
+  {
+    id: 'plaintiffLabel',
+    label: 'כינוי התובע',
+    type: 'text',
+    defaultValue: 'להלן: "התובע"',
+    placeholder: 'להלן: "..."',
+    group: 'כינוי התובע',
+    important: true,
+  },
+
+  // =============================================
+  // פרטי הנתבעת (Defendant details)
+  // =============================================
+  {
+    id: 'defendantCompanyId',
+    label: 'מספר ח.פ של הנתבעת',
+    type: 'text',
+    defaultValue: '513136895',
+    placeholder: 'XXXXXXXXX',
+    group: 'פרטי הנתבעת',
+  },
   {
     id: 'defendantLabel',
     label: 'כינוי הנתבעת',
@@ -180,14 +196,6 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     placeholder: 'להלן: "..."',
     group: 'פרטי הנתבעת',
     important: true,
-  },
-  {
-    id: 'defendantCompanyId',
-    label: 'מספר ח.פ של הנתבעת',
-    type: 'text',
-    defaultValue: '513136895',
-    placeholder: 'XXXXXXXXX',
-    group: 'פרטי הנתבעת',
   },
   {
     id: 'caseInfoBlock',
@@ -201,58 +209,6 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     placeholder: 'פרטי התביעה...',
     group: 'בלוקים של טקסט',
     important: true,
-  },
-
-  // =============================================
-  // פרטי התאונה (Accident details)
-  // =============================================
-  {
-    id: 'accidentDate',
-    label: 'תאריך התאונה',
-    type: 'text',
-    defaultValue: '14.4.2022',
-    placeholder: 'DD.MM.YYYY',
-    group: 'פרטי התאונה',
-  },
-  {
-    id: 'accidentTime',
-    label: 'שעת התאונה',
-    type: 'text',
-    defaultValue: '18:00',
-    placeholder: 'HH:MM',
-    group: 'פרטי התאונה',
-  },
-  {
-    id: 'plaintiffVehicleReg',
-    label: 'מספר רכב התובע',
-    type: 'text',
-    defaultValue: '1065553',
-    placeholder: 'מספר רישוי',
-    group: 'פרטי התאונה',
-  },
-  {
-    id: 'busCompany',
-    label: 'חברת האוטובוס',
-    type: 'text',
-    defaultValue: 'אגד',
-    placeholder: 'שם חברה',
-    group: 'פרטי התאונה',
-  },
-  {
-    id: 'busReg',
-    label: 'מספר רכב האוטובוס',
-    type: 'text',
-    defaultValue: '779969',
-    placeholder: 'מספר רישוי',
-    group: 'פרטי התאונה',
-  },
-  {
-    id: 'policyNumber',
-    label: 'מספר פוליסת ביטוח',
-    type: 'text',
-    defaultValue: '202-312102119821-00',
-    placeholder: 'XXX-XXXXXXXXXXXX-XX',
-    group: 'פרטי התאונה',
   },
 
   // =============================================
@@ -313,6 +269,59 @@ export const DOCUMENT_FIELDS: FieldDefinition[] = [
     group: 'כותרות המסמך',
     important: true,
   },
+
+  // =============================================
+  // פרטי התאונה (Accident details — non-numbered, used in page 2 paragraph 3)
+  // =============================================
+  {
+    id: 'accidentDate',
+    label: 'תאריך התאונה',
+    type: 'text',
+    defaultValue: '14.4.2022',
+    placeholder: 'DD.MM.YYYY',
+    group: 'פרטי התאונה',
+  },
+  {
+    id: 'accidentTime',
+    label: 'שעת התאונה',
+    type: 'text',
+    defaultValue: '18:00',
+    placeholder: 'HH:MM',
+    group: 'פרטי התאונה',
+  },
+  {
+    id: 'plaintiffVehicleReg',
+    label: 'מספר רכב התובע',
+    type: 'text',
+    defaultValue: '1065553',
+    placeholder: 'מספר רישוי',
+    group: 'פרטי התאונה',
+  },
+  {
+    id: 'busCompany',
+    label: 'חברת האוטובוס',
+    type: 'text',
+    defaultValue: 'אגד',
+    placeholder: 'שם חברה',
+    group: 'פרטי התאונה',
+  },
+  {
+    id: 'busReg',
+    label: 'מספר רכב האוטובוס',
+    type: 'text',
+    defaultValue: '779969',
+    placeholder: 'מספר רישוי',
+    group: 'פרטי התאונה',
+  },
+  {
+    id: 'policyNumber',
+    label: 'מספר פוליסת ביטוח',
+    type: 'text',
+    defaultValue: '202-312102119821-00',
+    placeholder: 'XXX-XXXXXXXXXXXX-XX',
+    group: 'פרטי התאונה',
+  },
+
   {
     id: 'medicalHeading',
     label: 'כותרת טיפולים רפואיים',
