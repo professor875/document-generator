@@ -43,6 +43,7 @@
                 :id="field.id"
                 v-model="formData[field.id]"
                 :placeholder="field.placeholder || ''"
+                :class="{ 'input--important': field.important }"
                 rows="5"
               ></textarea>
               <input
@@ -51,6 +52,7 @@
                 v-model="formData[field.id]"
                 :type="field.type"
                 :placeholder="field.placeholder || ''"
+                :class="{ 'input--important': field.important }"
               />
             </div>
           </div>
@@ -351,6 +353,13 @@ onBeforeUnmount(() => {
   box-sizing: border-box;
   font-family: inherit;
   background: #fafafa;
+  color: #111;
+}
+
+.field input.input--important,
+.field textarea.input--important {
+  color: #dc2626;
+  border-color: #fca5a5;
 }
 
 .field textarea {
