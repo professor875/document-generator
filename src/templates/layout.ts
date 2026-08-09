@@ -154,8 +154,8 @@ export class PageLayout {
   constructor(
     page: PDFPage,
     fonts: Fonts,
-    margins: PageMargins = { top: 50, bottom: 50, left: 55, right: 55 },
-    defaultFontSize: number = 9
+    margins: PageMargins = { top: 50, bottom: 50, left: 50, right: 50 },
+    defaultFontSize: number = 10
   ) {
     this.page = page
     this.fonts = fonts
@@ -379,19 +379,6 @@ export class PageLayout {
 
     // Draw left content
     if (leftContent.text) {
-      if (leftContent.border) {
-        const textW = this.measureText(leftContent.text, leftStyle)
-        const boxPad = 4
-        this.page.drawRectangle({
-          x: this.margins.left - boxPad,
-          y: this.y - fontSize * 0.3,
-          width: textW + boxPad * 2,
-          height: fontSize * 1.4,
-          borderColor: rgb(0, 0, 0),
-          borderWidth: 0.8,
-          color: rgb(1, 1, 1),
-        })
-      }
       this.drawTextLine(
         this.margins.left, this.y, leftContent.text,
         this.contentWidth / 2, 'left', leftStyle
@@ -402,20 +389,6 @@ export class PageLayout {
     if (rightContent.text) {
       const rightX = this.margins.left + this.contentWidth / 2
       const rightW = this.contentWidth / 2
-
-      if (rightContent.border) {
-        const textW = this.measureText(rightContent.text, rightStyle)
-        const boxPad = 4
-        this.page.drawRectangle({
-          x: this.margins.left + this.contentWidth - textW - boxPad,
-          y: this.y - fontSize * 0.3,
-          width: textW + boxPad * 2,
-          height: fontSize * 1.4,
-          borderColor: rgb(0, 0, 0),
-          borderWidth: 0.8,
-          color: rgb(1, 1, 1),
-        })
-      }
       this.drawTextLine(rightX, this.y, rightContent.text, rightW, 'right', rightStyle)
     }
 
@@ -423,94 +396,55 @@ export class PageLayout {
   }
 
   /**
-   * Add text inside a bordered box.
-   * The box expands vertically to fit the content.
+   * Add a multi-line section of content.
+   * Renders lines sequentially with automatic Y tracking.
    */
   addBorderedSection(
     lines: Array<{ text: string; style?: TextStyle; alignment?: 'right' | 'center' | 'left' }>,
-    options: {
+    _options: {
       borderColor?: [number, number, number]
       padding?: number
       borderWidth?: number
     } = {}
   ): void {
-    const padding = options.padding ?? 6
-    const borderW = options.borderWidth ?? 0.8
-    const [br, bg, bb] = options.borderColor ?? [0, 0, 0]
-
-    // Calculate total height needed
-    let totalHeight = padding * 2
-    for (const line of lines) {
-      const fontSize = line.style?.fontSize ?? this.defaultFontSize
-      const wrapped = this.wrapText(line.text, this.contentWidth - padding * 2, line.style)
-      totalHeight += wrapped.length * fontSize * 1.4
-    }
-
-    // Draw the border rectangle
-    const boxY = this.y - totalHeight + (lines[0]?.style?.fontSize ?? this.defaultFontSize) * 1.1
-    this.page.drawRectangle({
-      x: this.margins.left,
-      y: boxY,
-      width: this.contentWidth,
-      height: totalHeight,
-      borderColor: rgb(br, bg, bb),
-      borderWidth: borderW,
-      color: rgb(1, 1, 1),
-    })
-
-    // Draw content inside the box
-    this.y -= padding * 0.3
-    const innerWidth = this.contentWidth - padding * 2
-    const innerX = this.margins.left + padding
-
     for (const line of lines) {
       const fontSize = line.style?.fontSize ?? this.defaultFontSize
       const lineHeight = fontSize * 1.4
       const alignment = line.alignment ?? 'center'
 
-      const wrapped = this.wrapText(line.text, innerWidth, line.style)
+      const wrapped = this.wrapText(line.text, this.contentWidth, line.style)
       for (const wl of wrapped) {
-        this.drawTextLine(innerX, this.y, wl, innerWidth, alignment, line.style)
+        this.drawTextLine(this.margins.left, this.y, wl, this.contentWidth, alignment, line.style)
         this.y -= lineHeight
       }
     }
-
-    this.y -= padding * 0.5
   }
 
   /**
-   * Add a centered heading with a border box around it.
-   * Matches the test script's sizing: box is textW+16 wide, fontSize*1.4+8 tall.
+   * Add a heading with alignment support.
+   * Supports center, right, and left alignment.
    */
-  addBoxedHeading(text: string, style: TextStyle = {}): void {
+  addBoxedHeading(
+    text: string,
+    style: TextStyle = {},
+    options: { alignment?: 'center' | 'right' | 'left'; borderColor?: [number, number, number] } = {}
+  ): void {
     const fontSize = style.fontSize ?? this.defaultFontSize
-    const textW = this.measureText(text, style)
-
-    this.page.drawRectangle({
-      x: this.margins.left + (this.contentWidth - textW) / 2 - 8,
-      y: this.y - fontSize * 0.3 - 4,
-      width: textW + 16,
-      height: fontSize * 1.4 + 8,
-      borderColor: rgb(0, 0, 0),
-      borderWidth: 0.8,
-      color: rgb(1, 1, 1),
-    })
+    const alignment = options.alignment ?? 'center'
 
     this.drawTextLine(
       this.margins.left, this.y, text,
-      this.contentWidth, 'center', style
+      this.contentWidth, alignment, style
     )
 
     this.y -= fontSize * 1.4 + 10
   }
 
   /**
-   * Add a labeled box on the right (like "בעניין :" or "צדדים :").
-   * Matches the test script's sizing: box is textW+12 wide, fontSize*1.4+6 tall.
+   * Add a right-aligned label (like "בעניין :").
    */
   addRightLabel(text: string, style: TextStyle = {}): void {
     const fontSize = style.fontSize ?? this.defaultFontSize
-    const textW = this.measureText(text, style)
 
     this.drawTextLine(
       this.margins.left, this.y, text,
@@ -518,6 +452,24 @@ export class PageLayout {
     )
 
     this.y -= fontSize * 1.4 + 8
+  }
+
+  /**
+   * Add a left-aligned label (like "להלן: "התובע"").
+   */
+  addLeftBoxedLabel(
+    text: string,
+    style: TextStyle = {},
+    _borderColor: [number, number, number] = [0.86, 0.15, 0.15]
+  ): void {
+    const fontSize = style.fontSize ?? this.defaultFontSize
+
+    this.drawTextLine(
+      this.margins.left, this.y, text,
+      this.contentWidth, 'left', style
+    )
+
+    this.y -= fontSize * 1.4 + 10
   }
 
   /**

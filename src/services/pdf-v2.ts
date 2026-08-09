@@ -168,7 +168,7 @@ function mapFormDataToFields(formData: Record<string, string>): DocumentFields {
  * instance ready for content rendering.
  */
 function createPage(doc: PDFDocument, fonts: Fonts): PageLayout {
-  const page = doc.addPage([612, 792])
+  const page = doc.addPage([595.28, 841.89])
   return new PageLayout(page, fonts)
 }
 

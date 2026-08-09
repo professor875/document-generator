@@ -2,8 +2,7 @@
  * Page 1 Template — Statement of Claim Header
  *
  * All red-boxed content is now dynamic via fields.
- * NO black borders except case number box and "בעניין:" (handled in header).
- * Headings use bold+underline centered text instead of bordered boxes.
+ * Headings use bordered boxes matching the original PDF layout.
  * Textarea fields are split by newlines and rendered line-by-line.
  */
 
@@ -29,45 +28,49 @@ export function renderPage1(layout: PageLayout, fields: DocumentFields): void {
   // ===============================================================
   renderHeader(layout, fields)
 
-  layout.addSpacing(10)
+  layout.addSpacing(12)
 
   // ===============================================================
-  // SECTION: Case type and amounts (dynamic textarea, no border)
+  // SECTION: Case type and amounts (dynamic textarea, bordered box)
   // ===============================================================
   const caseInfoLines = fields.caseInfoBlock.split('\n').filter(l => l.trim())
-  for (const line of caseInfoLines) {
-    layout.addRightText(line, { ...bold, fontSize: 9 })
-  }
+  layout.addBorderedSection(
+    caseInfoLines.map(line => ({
+      text: line,
+      style: { ...bold, fontSize: 10 },
+      alignment: 'right' as const,
+    })),
+  )
 
-  layout.addSpacing(10)
-
-  // ===============================================================
-  // SECTION: "הזמנה לדין" heading — bold underlined centered, NO box
-  // ===============================================================
-  layout.addCenteredText(fields.summonsHeading, { ...bold, fontSize: 10, underline: true })
-
-  layout.addSpacing(6)
+  layout.addSpacing(12)
 
   // ===============================================================
-  // SECTION: Summons text (dynamic textarea, no border)
+  // SECTION: "הזמנה לדין" heading — bold underlined centered, boxed
   // ===============================================================
-  layout.addRightText(fields.summonsText, { ...bold, fontSize: 9 })
-
-  layout.addSpacing(10)
-
-  // ===============================================================
-  // SECTION: "כתב תביעה" heading — bold underlined centered, NO box
-  // ===============================================================
-  layout.addCenteredText(fields.claimHeading, { ...bold, fontSize: 11, underline: true })
+  layout.addBoxedHeading(fields.summonsHeading, { ...bold, fontSize: 11, underline: true })
 
   layout.addSpacing(8)
 
   // ===============================================================
-  // SECTION: "צדדים:" heading — bold underlined right-aligned, NO box
+  // SECTION: Summons text (dynamic textarea, no border)
   // ===============================================================
-  layout.addRightText(fields.partiesHeading, { ...bold, fontSize: 9, underline: true })
+  layout.addRightText(fields.summonsText, { ...bold, fontSize: 10 })
 
-  layout.addSpacing(6)
+  layout.addSpacing(12)
+
+  // ===============================================================
+  // SECTION: "כתב תביעה" heading — bold underlined centered, boxed
+  // ===============================================================
+  layout.addBoxedHeading(fields.claimHeading, { ...bold, fontSize: 12, underline: true })
+
+  layout.addSpacing(10)
+
+  // ===============================================================
+  // SECTION: "צדדים:" heading — bold underlined right-aligned, boxed
+  // ===============================================================
+  layout.addBoxedHeading(fields.partiesHeading, { ...bold, fontSize: 10, underline: true }, { alignment: 'right' })
+
+  layout.addSpacing(8)
 
   // ===============================================================
   // SECTION: Parties description
@@ -80,7 +83,7 @@ export function renderPage1(layout: PageLayout, fields: DocumentFields): void {
   )
 
   layout.addSpacing(3)
-  layout.addRightText('מצ"ב ייפוי כוח כנספח המסומן א\'', { ...bold, fontSize: 8 })
+  layout.addRightText('מצ"ב ייפוי כוח כנספח המסומן א\'', { ...bold, fontSize: 9 })
 
   layout.addSpacing(6)
 
@@ -96,7 +99,7 @@ export function renderPage1(layout: PageLayout, fields: DocumentFields): void {
   )
 
   layout.addSpacing(3)
-  layout.addRightText('מצ"ב פוליסת ביטוח חובה כנספח המסומן ב\'', { ...bold, fontSize: 8 })
+  layout.addRightText('מצ"ב פוליסת ביטוח חובה כנספח המסומן ב\'', { ...bold, fontSize: 9 })
 
   // ===============================================================
   // SECTION: Page number footer

@@ -5,11 +5,11 @@
  *   - Continuation of item 11 from page 2
  *   - Items 12-14 (continued medical documentation)
  *   - Attachments references
- *   - "סעדים נדרשים" heading and claims text (dynamic textarea)
- *   - Special and general damages (dynamic textareas)
+ *   - "סעדים נדרשים" heading (bordered box) and claims text (dynamic textarea)
+ *   - Special and general damages with bordered sections (dynamic textareas)
  *
- * All headings are bold underlined text WITHOUT bordered boxes.
- * Damage sections use dynamic textarea content.
+ * Headings use bordered boxes matching the original PDF layout.
+ * Damage sections use bordered sections with dynamic textarea content.
  */
 
 import type { PageLayout } from './layout'
@@ -22,14 +22,14 @@ export function renderPage3(layout: PageLayout, fields: DocumentFields): void {
   const bold = { bold: true } as const
 
   // ===============================================================
-  // SECTION: Medical treatments — remaining paragraphs (items 11-14)
+  // SECTION: Medical treatments — remaining paragraphs (items 12-14)
   // ===============================================================
   const medicalParagraphs = fields.medicalTreatmentsText
     .split(/\n\s*\n/)
     .map(p => p.trim())
     .filter(p => p.length > 0)
 
-  const page3Paragraphs = medicalParagraphs.slice(6)
+  const page3Paragraphs = medicalParagraphs.slice(7)
   for (const para of page3Paragraphs) {
     const match = para.match(/^(\d+\.)\s*(.*)$/s)
     if (match) {
@@ -45,58 +45,56 @@ export function renderPage3(layout: PageLayout, fields: DocumentFields): void {
   // ===============================================================
   // SECTION: Medical attachments
   // ===============================================================
-  layout.addRightText('תיעוד רפואי מצורף כנספח המסומן ו\'', { ...bold, fontSize: 8 })
+  layout.addRightText('תיעוד רפואי מצורף כנספח המסומן ו\'', { ...bold, fontSize: 9 })
   layout.addSpacing(2)
-  layout.addRightText('טופס ויתור על סודיות רפואית מצורף כנספח המסומן ז\'', { ...bold, fontSize: 8 })
+  layout.addRightText('טופס ויתור על סודיות רפואית מצורף כנספח המסומן ז\'', { ...bold, fontSize: 9 })
 
-  layout.addSpacing(10)
+  layout.addSpacing(12)
 
   // ===============================================================
-  // SECTION: "סעדים נדרשים" heading — bold underlined, NO box
+  // SECTION: "סעדים נדרשים" heading — bold underlined, bordered box
   // ===============================================================
-  layout.addRightText(fields.remediesHeading, { ...bold, fontSize: 10, underline: true })
+  layout.addBoxedHeading(fields.remediesHeading, { ...bold, fontSize: 10, underline: true }, { alignment: 'right' })
 
-  layout.addSpacing(6)
+  layout.addSpacing(8)
 
   // ===============================================================
   // SECTION: Claims text (dynamic textarea, items 15-19)
   // ===============================================================
   const claimsLines = fields.claimsText.split('\n').filter(l => l.trim())
   for (const line of claimsLines) {
-    layout.addRightText(line, { fontSize: 9 })
+    layout.addRightText(line)
   }
+
+  layout.addSpacing(8)
+
+  // ===============================================================
+  // SECTION: Special damages — heading as bold underlined, bordered box
+  // ===============================================================
+  layout.addBoxedHeading(fields.specialDamagesHeading, { ...bold, fontSize: 10, underline: true }, { alignment: 'center' })
+
+  layout.addSpacing(4)
+
+  // Special damage items (dynamic textarea) — bordered section
+  const specialLines = fields.specialDamages.split('\n').filter(l => l.trim())
+  layout.addBorderedSection(
+    specialLines.map(line => ({ text: line, alignment: 'right' as const }))
+  )
 
   layout.addSpacing(6)
 
   // ===============================================================
-  // SECTION: Special damages — heading as bold underlined, NO box
+  // SECTION: General damages — heading as bold underlined, bordered box
   // ===============================================================
-  layout.addRightText(fields.specialDamagesHeading, { ...bold, fontSize: 9, underline: true })
+  layout.addBoxedHeading(fields.generalDamagesHeading, { ...bold, fontSize: 10, underline: true }, { alignment: 'center' })
 
   layout.addSpacing(4)
 
-  // Special damage items (dynamic textarea)
-  const specialLines = fields.specialDamages.split('\n').filter(l => l.trim())
-  for (const line of specialLines) {
-    layout.addRightText(line)
-    layout.addSpacing(2)
-  }
-
-  layout.addSpacing(4)
-
-  // ===============================================================
-  // SECTION: General damages — heading as bold underlined, NO box
-  // ===============================================================
-  layout.addRightText(fields.generalDamagesHeading, { ...bold, fontSize: 9, underline: true })
-
-  layout.addSpacing(4)
-
-  // General damage items (dynamic textarea)
+  // General damage items (dynamic textarea) — bordered section
   const generalLines = fields.generalDamages.split('\n').filter(l => l.trim())
-  for (const line of generalLines) {
-    layout.addRightText(line)
-    layout.addSpacing(2)
-  }
+  layout.addBorderedSection(
+    generalLines.map(line => ({ text: line, alignment: 'right' as const }))
+  )
 
   // ===============================================================
   // SECTION: Page number footer

@@ -2,11 +2,9 @@
  * Page 4 Template — Legal Prayer for Relief & Signature
  *
  * Contains:
- *   - Items 20-23 as dynamic textarea (legal claims and prayer)
+ *   - Items 20-23 as dynamic textarea (legal claims and prayer) in bordered section
  *   - Attachment reference
- *   - Attorney signature line
- *
- * NO bordered sections — all content rendered as plain text.
+ *   - Attorney signature line in bordered section
  */
 
 import type { PageLayout } from './layout'
@@ -19,30 +17,33 @@ export function renderPage4(layout: PageLayout, fields: DocumentFields): void {
   const bold = { bold: true } as const
 
   // ===============================================================
-  // SECTION: Items 20-23 — Legal prayer for relief (dynamic textarea, NO border)
+  // SECTION: Items 20-23 — Legal prayer for relief (bordered, red border)
   // ===============================================================
   const prayerLines = fields.legalPrayer.split('\n').filter(l => l.trim())
-  for (const line of prayerLines) {
-    layout.addRightText(line, { fontSize: 9 })
-  }
+  layout.addBorderedSection(
+    prayerLines.map(line => ({ text: line, style: { fontSize: 10 }, alignment: 'right' as const })),
+    { borderColor: [0.86, 0.15, 0.15] }
+  )
 
   layout.addSpacing(10)
 
   // ===============================================================
   // SECTION: Attachment reference
   // ===============================================================
-  layout.addRightText('מצ"ב הצהרת תובע כנספח המסומן ח\'', { ...bold, fontSize: 8 })
+  layout.addRightText('מצ"ב הצהרת תובע כנספח המסומן ח\'', { ...bold, fontSize: 9 })
 
   layout.addSpacing(30)
 
   // ===============================================================
-  // SECTION: Attorney signature
+  // SECTION: Attorney signature (bordered)
   // ===============================================================
-  layout.addCenteredText('____________________')
-  layout.addSpacing(4)
-  layout.addCenteredText(`${fields.attorneySignName}, עו"ד`, { ...bold, fontSize: 10 })
-  layout.addSpacing(2)
-  layout.addCenteredText(fields.signatureTitle, { fontSize: 9 })
+  layout.addBorderedSection(
+    [
+      { text: '____________________', alignment: 'center' as const },
+      { text: `${fields.attorneySignName}, עו"ד`, style: { ...bold, fontSize: 10 }, alignment: 'center' as const },
+      { text: fields.signatureTitle, style: { fontSize: 9 }, alignment: 'center' as const },
+    ]
+  )
 
   // ===============================================================
   // SECTION: Page number footer

@@ -4,9 +4,9 @@
  * Contains:
  *   - "אירוע התאונה" section with items 3-4
  *   - Attachments references
- *   - "טיפולים רפואיים" section with items 5-11 (partial)
+ *   - "טיפולים רפואיים" section with items 5-11
  *
- * All headings are bold underlined text WITHOUT bordered boxes.
+ * Headings use right-aligned bordered boxes (addBoxedHeading).
  * All dynamic values come from the fields object.
  */
 
@@ -20,11 +20,11 @@ export function renderPage2(layout: PageLayout, fields: DocumentFields): void {
   const bold = { bold: true } as const
 
   // ===============================================================
-  // SECTION: "אירוע התאונה" heading — bold underlined, NO box
+  // SECTION: "אירוע התאונה" heading — bold underlined, right-aligned bordered box
   // ===============================================================
-  layout.addRightText(fields.accidentHeading, { ...bold, fontSize: 10, underline: true })
+  layout.addBoxedHeading(fields.accidentHeading, { ...bold, fontSize: 10, underline: true }, { alignment: 'right' })
 
-  layout.addSpacing(6)
+  layout.addSpacing(8)
 
   // ===============================================================
   // SECTION: Item 3 — Accident description
@@ -49,30 +49,30 @@ export function renderPage2(layout: PageLayout, fields: DocumentFields): void {
   // ===============================================================
   // SECTION: Attachments for accident
   // ===============================================================
-  layout.addRightText('מצ"ב אישור משטרה על התאונה כנספח המסומן ג\'', { ...bold, fontSize: 8 })
+  layout.addRightText('מצ"ב אישור משטרה על התאונה כנספח המסומן ג\'', { ...bold, fontSize: 9 })
   layout.addSpacing(2)
-  layout.addRightText('מצ"ב רישיון נהיגה של הנהג בעת התרחשות התאונה כנספח המסומן ד\'', { ...bold, fontSize: 8 })
+  layout.addRightText('מצ"ב רישיון נהיגה של הנהג בעת התרחשות התאונה כנספח המסומן ד\'', { ...bold, fontSize: 9 })
   layout.addSpacing(2)
-  layout.addRightText('מצ"ב תמונות של הרכבים כנספח המסומן ה\'', { ...bold, fontSize: 8 })
+  layout.addRightText('מצ"ב תמונות של הרכבים כנספח המסומן ה\'', { ...bold, fontSize: 9 })
 
-  layout.addSpacing(10)
-
-  // ===============================================================
-  // SECTION: "טיפולים רפואיים" heading — bold underlined, NO box
-  // ===============================================================
-  layout.addRightText(fields.medicalHeading, { ...bold, fontSize: 10, underline: true })
-
-  layout.addSpacing(6)
+  layout.addSpacing(12)
 
   // ===============================================================
-  // SECTION: Medical treatments — first 6 paragraphs (items 5-10)
+  // SECTION: "טיפולים רפואיים" heading — bold underlined, right-aligned bordered box
+  // ===============================================================
+  layout.addBoxedHeading(fields.medicalHeading, { ...bold, fontSize: 10, underline: true }, { alignment: 'right' })
+
+  layout.addSpacing(8)
+
+  // ===============================================================
+  // SECTION: Medical treatments — first 7 paragraphs (items 5-11)
   // ===============================================================
   const medicalParagraphs = fields.medicalTreatmentsText
     .split(/\n\s*\n/)
     .map(p => p.trim())
     .filter(p => p.length > 0)
 
-  const page2Paragraphs = medicalParagraphs.slice(0, 6)
+  const page2Paragraphs = medicalParagraphs.slice(0, 7)
   for (const para of page2Paragraphs) {
     // Extract leading number (e.g. "5.") and the rest
     const match = para.match(/^(\d+\.)\s*(.*)$/s)
@@ -81,7 +81,7 @@ export function renderPage2(layout: PageLayout, fields: DocumentFields): void {
     } else {
       layout.addRightText(para)
     }
-    layout.addSpacing(6)
+    layout.addSpacing(4)
   }
 
   // ===============================================================
